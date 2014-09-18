@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE locale SYSTEM "../../../../../lib/pkp/dtd/locale.dtd">
+
+<!--
+  * locale.xml
+  *
+  * Copyright (c) 2013 University of Potsdam, 2003-2012 John Willinsky
+  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
+  *
+  * Localization strings for the cs_CZ locale.
+  *
+  * $Id$
+  -->
+
+<locale name="cs_CZ" full_name="Czech">
+	<message key="plugins.importexport.paperPackageUpload.addToExisting">Přidat do existujícího čísla:</message>
+	<message key="plugins.importexport.paperPackageUpload.chooseDestination">Destinace příspěvku</message>
+	<message key="plugins.importexport.paperPackageUpload.chooseDestinationDescription">Zvolte, zda přidat nový příspěvek do existujícího čísla nebo ho ponechat ve frontě k editování.</message>
+	<message key="plugins.importexport.paperPackageUpload.displayName">Plugin PaperPackageUpload</message>
+	<message key="plugins.importexport.paperPackageUpload.description">Plugin odeslání v jednom kroku</message>
+	<message key="plugins.importexport.paperPackageUpload.descriptionLong">Tento plugin umožňuje rychle přidat hotový příspěvek do fronty k editování nebo přímo do vybraného čísla</message>
+	<message key="plugins.importexport.paperPackageUpload.issueRequired">Musíte zvolit číslo, do kterého má být článek přidán.</message>
+	<message key="plugins.importexport.paperPackageUpload.leaveUnpublished">Ponechat nepublikovaný</message>
+	<message key="plugins.importexport.paperPackageUpload.saveAndCreateAnother">Uložit a vytvořit další</message>
+	<message key="plugins.importexport.paperPackageUpload.submissionData">Data příspěvku</message>	
+	<message key="plugins.importexport.paperPackageUpload.submissionDescription">Zvolte soubor, který se má použít jako finální soubor sazebnice pro tento příspěvek.</message>	
+	<message key="plugins.importexport.paperPackageUpload.submissionRequired">Musíte nahrát soubor pro tento příspěvek.</message>	
+	<message key="plugins.importexport.paperPackageUpload.success">Článek přidán</message>
+	<message key="plugins.importexport.paperPackageUpload.successDescription">Vytvoření článku bylo úspěšné.</message>
+	<message key="plugins.importexport.paperPackageUpload.successReturn">Vrátit se do pluginu PaperPackageUpload.</message>
+</locale>

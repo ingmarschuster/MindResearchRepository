@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE locale SYSTEM "../../../../../lib/pkp/dtd/locale.dtd">
+
+<!--
+  * locale.xml
+  *
+  * Copyright (c) 2013 University of Potsdam, 2003-2012 John Willinsky
+  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
+  *
+  * Translated by Denys Solovianenko, 2011
+  * V. I. Vernadsky National Library of Ukraine
+  * $Id$
+  -->
+ 
+<locale name="uk_UA" full_name="Ukrainian">
+	<message key="plugins.importexport.paperPackageUpload.addToExisting">Додати до існуючого випуску:</message>
+	<message key="plugins.importexport.paperPackageUpload.chooseDestination">Розміщення подання</message>
+	<message key="plugins.importexport.paperPackageUpload.chooseDestinationDescription">Визначте, чи потрібно додавати нові подання до існуючого випуску, або потрібно їх включити до редакційної черги.</message>
+	<message key="plugins.importexport.paperPackageUpload.displayName">Модуль швидкого завантаження</message>
+	<message key="plugins.importexport.paperPackageUpload.description">Модуль для подання рукопису у один крок</message>
+	<message key="plugins.importexport.paperPackageUpload.descriptionLong">Цей модуль дозволяє швидко додавати готові подання у редакційну чергу або безпосередньо у один з випусків.</message>
+	<message key="plugins.importexport.paperPackageUpload.issueRequired">Ви повинні визначити випуск, у який буде додана стаття.</message>
+	<message key="plugins.importexport.paperPackageUpload.leaveUnpublished">Залишити неопублікованим</message>
+	<message key="plugins.importexport.paperPackageUpload.saveAndCreateAnother">Зберегти та створити інше</message>
+	<message key="plugins.importexport.paperPackageUpload.submissionData">Дані подання</message>	
+	<message key="plugins.importexport.paperPackageUpload.submissionDescription">Оберіть файл, який буде використовуватись як файл остаточної гранки цієї статті.</message>	
+	<message key="plugins.importexport.paperPackageUpload.submissionRequired">Ви повинні вивантажити файл для цього подання.</message>	
+	<message key="plugins.importexport.paperPackageUpload.success">Стаття додана</message>
+	<message key="plugins.importexport.paperPackageUpload.successDescription">Стаття успішно створена.</message>
+	<message key="plugins.importexport.paperPackageUpload.successReturn">Повернутися до модуля швидкого завантаження.</message>
+</locale>

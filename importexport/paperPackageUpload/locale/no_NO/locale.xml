@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE locale SYSTEM "../../../../../lib/pkp/dtd/locale.dtd">
+
+<!--
+  * locale.xml
+  *
+  * Copyright (c) 2000-2012 John Willinsky
+  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
+  *
+  * Localization strings for the en_US (U.S. English) locale.
+  *
+  * $Id: locale.xml,v 1.1 2009/06/16 21:09:19 mcrider Exp $
+  -->
+
+<locale name="en_US" full_name="U.S. English">
+	<message key="plugins.importexport.paperPackageUpload.addToExisting">Legg til i et eksisterende nummer:</message>
+	<message key="plugins.importexport.paperPackageUpload.chooseDestination">Innlevering skal til</message>
+	<message key="plugins.importexport.paperPackageUpload.chooseDestinationDescription">Velg om den nye innleveringen skal inn i et eksisterende nummer, eller om den skal legges i kø for redaksjonell behandling.</message>
+	<message key="plugins.importexport.paperPackageUpload.displayName">PaperPackageUpload programutvidelse</message>
+	<message key="plugins.importexport.paperPackageUpload.description">Ett-stegs innlevering</message>
+	<message key="plugins.importexport.paperPackageUpload.descriptionLong">Denne programutvidelsen gjør det mulig å raskt legge komplette innleveringer til redaksjonell behandling eller rett i et nummer.</message>
+	<message key="plugins.importexport.paperPackageUpload.issueRequired">Du må velge et nummer å legge artikkelen til i.</message>
+	<message key="plugins.importexport.paperPackageUpload.leaveUnpublished">La være upublisert</message>
+	<message key="plugins.importexport.paperPackageUpload.saveAndCreateAnother">Lagre og lag en ny</message>
+	<message key="plugins.importexport.paperPackageUpload.submissionData">Innleveringsdata</message>	
+	<message key="plugins.importexport.paperPackageUpload.submissionDescription">Velg fila som skal brukes som publisert utgave av denne innleveringen.</message>	
+	<message key="plugins.importexport.paperPackageUpload.submissionRequired">Du må laste opp en fil for denne innleveringen.</message>	
+	<message key="plugins.importexport.paperPackageUpload.success">Artikkel lagt til.</message>
+	<message key="plugins.importexport.paperPackageUpload.successDescription">Du har foretatt en vellykket oppretting av artikkelen.</message>
+	<message key="plugins.importexport.paperPackageUpload.successReturn">Gå tilbake til programutvidelsen PaperPackageUpload.</message>
+</locale>

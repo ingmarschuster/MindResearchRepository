@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE locale SYSTEM "../../../../../lib/pkp/dtd/locale.dtd">
+
+<!--
+  * locale.xml
+  *
+  * Copyright (c) 2013 University of Potsdam, 2003-2012 John Willinsky
+  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
+  *
+  * Localization strings for the en_US (U.S. English) locale.
+  *
+  * $Id$
+  -->
+
+<locale name="en_US" full_name="U.S. English">
+	<message key="plugins.importexport.paperPackageUpload.addToExisting">Добавить к существующему выпуску:</message>
+	<message key="plugins.importexport.paperPackageUpload.chooseDestination">Конечная точка</message>
+	<message key="plugins.importexport.paperPackageUpload.chooseDestinationDescription">Выберите -- хотите ли Вы добавить новые рукописи к существующему выпуску или оставить их в очереди.</message>
+	<message key="plugins.importexport.paperPackageUpload.displayName">Модуль быстрой публикации</message>
+	<message key="plugins.importexport.paperPackageUpload.description">Модуль быстрой публикации</message>
+	<message key="plugins.importexport.paperPackageUpload.descriptionLong">Этот модуль позволяет добавлять рукописи к очереди на публикацию, либо непосредственно в том журнала.</message>
+	<message key="plugins.importexport.paperPackageUpload.issueRequired">Выберите том, к которому Вы хотите добавить.</message>
+	<message key="plugins.importexport.paperPackageUpload.leaveUnpublished">Оставить неопубликованным</message>
+	<message key="plugins.importexport.paperPackageUpload.saveAndCreateAnother">Сохранить и создать другой</message>
+	<message key="plugins.importexport.paperPackageUpload.submissionData">Данные рукописи</message>	
+	<message key="plugins.importexport.paperPackageUpload.submissionDescription">Выберите файл, который будет использован в качестве окончательных гранок данной рукописи.</message>	
+	<message key="plugins.importexport.paperPackageUpload.submissionRequired">Необходимо загрузить файл.</message>	
+	<message key="plugins.importexport.paperPackageUpload.success">Статья добавлена</message>
+	<message key="plugins.importexport.paperPackageUpload.successDescription">Статья была успешно создана.</message>
+	<message key="plugins.importexport.paperPackageUpload.successReturn">Вернуться к модулю быстрой публикации.</message>
+</locale>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE locale SYSTEM "../../../../../lib/pkp/dtd/locale.dtd">
+
+<!--
+  * locale.xml
+  *
+  * Copyright (c) 2013 University of Potsdam, 2003-2012 John Willinsky
+  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
+  *
+  * Localization strings for the fr_CA locale.
+  *
+  * $Id$
+  -->
+
+<locale name="fr_CA" full_name="Français (Canada)">
+	<message key="plugins.importexport.paperPackageUpload.addToExisting">Ajouter à un numéro existant :</message>
+	<message key="plugins.importexport.paperPackageUpload.chooseDestination">Destination de la soumission</message>
+	<message key="plugins.importexport.paperPackageUpload.chooseDestinationDescription">Choisir soit d'ajouter les nouvelles soumissions à un numéro existant, soit de les laisser en révision.</message>
+	<message key="plugins.importexport.paperPackageUpload.displayName">Plugiciel PaperPackageUpload</message>
+	<message key="plugins.importexport.paperPackageUpload.description">Plugiciel de soumission en une étape</message>
+	<message key="plugins.importexport.paperPackageUpload.descriptionLong">Ce plugiciel permet d'ajouter rapidement des soumissions complètes en révision ou directement dans un numéro.</message>
+	<message key="plugins.importexport.paperPackageUpload.issueRequired">Vous devez sélectionner le numéro où l'article doit être ajouté.</message>
+	<message key="plugins.importexport.paperPackageUpload.leaveUnpublished">Laisser non publié</message>
+	<message key="plugins.importexport.paperPackageUpload.saveAndCreateAnother">Enregistrer et en créer un autre</message>
+	<message key="plugins.importexport.paperPackageUpload.submissionData">Données de la soumission</message>
+	<message key="plugins.importexport.paperPackageUpload.submissionDescription">Choisir le fichier qui doit être utilisé comme épreuve finale pour cette soumission.</message>
+	<message key="plugins.importexport.paperPackageUpload.submissionRequired">Vous devez télécharger le fichier pour cette soumission.</message>
+	<message key="plugins.importexport.paperPackageUpload.success">Article ajouté</message>
+	<message key="plugins.importexport.paperPackageUpload.successDescription">Création de l'article avec succès.</message>
+	<message key="plugins.importexport.paperPackageUpload.successReturn">Retourner au plugiciel PaperPackageUpload.</message>
+</locale>

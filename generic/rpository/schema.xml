@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE schema SYSTEM "../../../dbscripts/xml/dtd/xmlschema.dtd">
+
+<schema version="0.2">
+    <table name="rpository">
+        <field name="packageId" type="I8">
+            <KEY/>
+            <AUTOINCREMENT/>
+        </field>
+        <field name="articleId" type="I8">
+            <NOTNULL/>
+        </field>
+        <field name="fileName" type="C2" size="60">
+            <UNIQUE/>
+            <NOTNULL/>
+        </field>
+        <field name="current" type="I1">
+            <NOTNULL/>
+        </field>
+        <field name="major" type="I4">
+	    <NOTNULL/>
+	    <DEFAULT VALUE="0"/>
+	</fiel>
+	<field name="minor" type="I4">
+	    <NOTNULL/>
+	    <DEFAULT VALUE="0"/>
+	</fiel>
+	<field name="date" type="D">
+            <NOTNULL/>
+        </field>
+        <field name="pidv1" type="C2" size="60">
+            <UNIQUE/>
+        </field>
+        <field name="pidv2" type="C2" size="60">
+            <UNIQUE/>
+        </field>
+        <index name="rpository_key">
+            <col>packageId</col>
+            <UNIQUE/>
+        </index>
+    </table>
+    <table name="rpository_unused_pid">
+        <field name="packageId" type="I8">
+            <KEY/>
+            <AUTOINCREMENT/>
+        </field>
+        <field name="articleId" type="I8">
+            <NOTNULL/>
+        </field>
+        <field name="fileName" type="C2" size="60">
+            <UNIQUE/>
+            <NOTNULL/>
+        </field>
+        <field name="current" type="I1">
+            <NOTNULL/>
+        </field>
+        <field name="date" type="D">
+            <NOTNULL/>
+        </field>
+        <field name="pidv1" type="C2" size="60">
+            <UNIQUE/>
+        </field>
+        <field name="pidv2" type="C2" size="60">
+            <UNIQUE/>
+        </field>
+        <index name="rpository_key">
+            <col>packageId</col>
+            <UNIQUE/>
+        </index>
+    </table>
+</schema>

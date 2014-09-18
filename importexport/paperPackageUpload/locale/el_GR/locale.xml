@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE locale SYSTEM "../../../../../lib/pkp/dtd/locale.dtd">
+
+<!--
+  * locale.xml
+  *
+  * Copyright (c) 2013 University of Potsdam, 2003-2012 John Willinsky
+  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
+  *
+  * Localization strings for the el_GR locale.
+  *
+  * $Id$
+  -->
+
+<locale name="el_GR" full_name="Greek">
+	<message key="plugins.importexport.paperPackageUpload.addToExisting">Προσθήκη σε ένα υπάρχον τεύχος:</message>
+	<message key="plugins.importexport.paperPackageUpload.chooseDestination">Προορισμός Υποβολής</message>
+	<message key="plugins.importexport.paperPackageUpload.chooseDestinationDescription">Επιλέξτε αν θα προσθέσετε νέες υποβολές σε ένα υπάρχον τεύχος ή θα τις αφήσετε στην σειρά για επιμέλεια.</message>
+	<message key="plugins.importexport.paperPackageUpload.displayName">PaperPackageUpload Plugin</message>
+	<message key="plugins.importexport.paperPackageUpload.description">Plugin υποβολής σε ένα βήμα</message>
+	<message key="plugins.importexport.paperPackageUpload.descriptionLong">Το plugin αυτό σας επιτρέπει να προσθέσετε γρήγορα νέες υποβολές είτε στη σειρά για επιμέλειας ή κατευθείαν σε ένα τεύχος.</message>
+	<message key="plugins.importexport.paperPackageUpload.issueRequired">Πρέπει να επιλέξετε ένα τεύχος όπου θέλετε να προσθέσετε το άρθρο.</message>
+	<message key="plugins.importexport.paperPackageUpload.leaveUnpublished">Αφήστε το αδημοσίευτο</message>
+	<message key="plugins.importexport.paperPackageUpload.saveAndCreateAnother">Αποθήκευση και Δημιουργία Νέου</message>
+	<message key="plugins.importexport.paperPackageUpload.submissionData">Δεδομένα Υποβολής</message>	
+	<message key="plugins.importexport.paperPackageUpload.submissionDescription">Επιλέξτε το αρχείο που θα χρησιμοποιηθεί ως το τελικό τυπογραφικό δοκίμιο για αυτή την υποβολή.</message>	
+	<message key="plugins.importexport.paperPackageUpload.submissionRequired">Πρέπει να ανεβάσετε ένα αρχείο για αυτή τη υποβολή.</message>	
+	<message key="plugins.importexport.paperPackageUpload.success">Το άρθρο προστέθηκε</message>
+	<message key="plugins.importexport.paperPackageUpload.successDescription">Η δημιουργία του άρθρου ήταν επιτυχής.</message>
+	<message key="plugins.importexport.paperPackageUpload.successReturn">ΕΠιστροφή στο PaperPackageUpload plugin.</message>
+</locale>

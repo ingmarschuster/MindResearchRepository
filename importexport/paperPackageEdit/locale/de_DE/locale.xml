@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE locale SYSTEM "../../../../../lib/pkp/dtd/locale.dtd">
+
+<!--
+  * locale.xml
+  *
+  * Copyright (c) 2013 University of Potsdam, 2003-2012 John Willinsky
+  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
+  *
+  * Localization strings for the de_DE (Deutsch (Deutschland)) locale.
+  *
+  * $Id$
+  -->
+
+<locale name="de_DE" full_name="Deutsch (Deutschland)">
+	<message key="plugins.importexport.paperPackageUpload.addToExisting">Zu einer existierenden Ausgabe hinzufügen:</message>
+	<message key="plugins.importexport.paperPackageUpload.chooseDestination">Ziel der Einreichung</message>
+	<message key="plugins.importexport.paperPackageUpload.chooseDestinationDescription">Wählen Sie aus, ob neue Einreichungen zu einer existierenden Ausgabe hinzugefügt werden sollen oder in der Redaktions-Warteschlange bleiben sollen.</message>
+	<message key="plugins.importexport.paperPackageUpload.displayName">Schnelleinreichungs-Plug-In</message>
+	<message key="plugins.importexport.paperPackageUpload.description">Ein-Schritt-Einreichungs-Plug-In</message>
+	<message key="plugins.importexport.paperPackageUpload.descriptionLong">Dieses Plug-In ermöglicht es Ihnen, schnell komplette Einreichungen zur Redaktions-Warteschlange oder direkt zu einer Ausgabe hinzuzufügen.</message>
+	<message key="plugins.importexport.paperPackageUpload.issueRequired">Sie müssen eine Ausgabe auswählen, der der Artikel hinzugefügt werden soll.</message>
+	<message key="plugins.importexport.paperPackageUpload.leaveUnpublished">Unveröffentlicht lassen</message>
+	<message key="plugins.importexport.paperPackageUpload.saveAndCreateAnother">Speichern und weitere anlegen</message>
+	<message key="plugins.importexport.paperPackageUpload.submissionData">Daten der Einreichung</message>	
+	<message key="plugins.importexport.paperPackageUpload.submissionDescription">Wählen Sie die Datei aus, die als fertige Fahne für diese Einreichung verwendet werden soll.</message>	
+	<message key="plugins.importexport.paperPackageUpload.submissionRequired">Sie müssen für diese Einreichung eine Datei hochladen.</message>	
+
+	<message key="plugins.importexport.paperPackageUpload.suppData">Ergänzende Daten der Einreichung</message>
+	<message key="plugins.importexport.paperPackageUpload.suppDescription">Wählen Sie die Datei aus, die als ergänzendes Material für diese Einreichung verwendet werden soll.</message> 
+	<message key="plugins.importexport.paperPackageUpload.suppRequired">Sie müssen für diese Einreichung ergänzendes Material hochladen.</message>
+	<message key="plugins.importexport.paperPackageUpload.suppFile">Datei für ergänzendes Material</message>
+	<message key="plugins.importexport.paperPackageUpload.replaceSuppFile">Datei für ergänzendes Material ersetzen/message>
+
+	<message key="plugins.importexport.paperPackageUpload.success">Artikel hinzugefügt</message>
+	<message key="plugins.importexport.paperPackageUpload.successDescription">Anlegen des Artikels war erfolgreich.</message>
+	<message key="plugins.importexport.paperPackageUpload.successReturn">Zum Schnelleinreichungs-Plug-In zurückkehren.</message>
+</locale>

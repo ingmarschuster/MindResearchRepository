@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE locale SYSTEM "../../../../../lib/pkp/dtd/locale.dtd">
+
+<!--
+  * locale.xml
+  *
+  * Copyright (c) 2013 University of Potsdam, 2003-2012 John Willinsky
+  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
+  *
+  * Localization strings for the en_US (U.S. English) locale.
+  *
+  * $Id$
+  -->
+
+<locale name="en_US" full_name="U.S. English">
+	<message key="plugins.importexport.paperPackageUpload.addToExisting">Add to an existing issue:</message>
+	<message key="plugins.importexport.paperPackageUpload.chooseDestination">Submission Destination</message>
+	<message key="plugins.importexport.paperPackageUpload.chooseDestinationDescription">Select whether to add new submissions to an existing issue or to leave in the editing queue.</message>
+	<message key="plugins.importexport.paperPackageUpload.displayName">PaperPackageUpload Plugin</message>
+	<message key="plugins.importexport.paperPackageUpload.description">One-step submission plugin</message>
+	<message key="plugins.importexport.paperPackageUpload.descriptionLong">This plugin allows you to quickly add complete submissions to the editing queue or directly into an issue.</message>
+	<message key="plugins.importexport.paperPackageUpload.issueRequired">You must select an issue to add the article to.</message>
+	<message key="plugins.importexport.paperPackageUpload.leaveUnpublished">Leave unpublished</message>
+        <message key="plugins.importexport.paperPackageUpload.datePublished">Published</message>
+        <message key="plugins.importexport.paperPackageUpload.saveAndCreateAnother">Save and Create Another</message>
+	<message key="plugins.importexport.paperPackageUpload.submissionData">Submission Data</message>
+	<message key="plugins.importexport.paperPackageUpload.submissionFile">Submission File</message>
+       	<message key="plugins.importexport.paperPackageUpload.subDataDescription">If your publication already has a handle/DOI please enter it. Otherwise please upload your materials in the designated fields.</message>
+	<message key="plugins.importexport.paperPackageUpload.submissionDescription">Choose the file to be used as the final galley file for this submission.</message>	
+	<message key="plugins.importexport.paperPackageUpload.submissionRequired">You must upload a file for this submission.</message>	
+        <message key="plugins.importexport.paperPackageUpload.supplRequired">You must upload supplementary material.</message>
+        <message key="plugins.importexport.paperPackageUpload.supplUnpackable">Sorry, we're not able to unpack the format your package has.</message>
+	<message key="plugins.importexport.paperPackageUpload.uploadSubmissionFile">Upload submission file</message>
+	<message key="plugins.importexport.paperPackageUpload.uploadSuppFile">Upload supplementary file</message>
+	<message key="plugins.importexport.paperPackageUpload.dateRequired">You must enter the date of publication for the original paper.</message>
+        <message key="plugins.importexport.paperPackageUpload.authorRequiredFields">The first and last name of the author is required</message>
+
+        <message key="plugins.importexport.paperPackageUpload.submissionHandleDescription">If your publication already has a handle/DOI please enter it. Otherwise please upload the file to be used as the final galley in the upload field.</message>
+	<message key="plugins.importexport.paperPackageUpload.supplHandleDescription">If your supplementary material already has a handle/DOI please enter it. Otherwise please upload the file to be used as supplementary material in the upload field.</message>
+        <message key="plugins.importexport.paperPackageUpload.handleHead">Handle</message>
+	<message key="plugins.importexport.paperPackageUpload.submissionHandle">Handle/DOI of submission file</message>
+        <message key="plugins.importexport.paperPackageUpload.supplHandle">Handle/DOI of supplementary material</message>	
+        <message key="plugins.importexport.paperPackageUpload.submissionHandleIsWrong">The handle/DOI of your submission file is required to be valid.</message>
+        <message key="plugins.importexport.paperPackageUpload.supplHandleIsWrong">The handle/DOI of your supplementary material is required to be valid.</message>
+        <message key="plugins.importexport.paperPackageUpload.submissionHandleRequired">You must upload a file for this submission or enter its handle.</message> 
+        <message key="plugins.importexport.paperPackageUpload.supplHandleRequired">You must upload your supplementary material or enter its handle.</message>
+        <message key="plugins.importexport.paperPackageUpload.submissionHandleOrFile">Please don't upload a submission file and enter its handle at the same time - choose one.</message>
+	<message key="plugins.importexport.paperPackageUpload.supplHandleOrFile">Please don't upload supplementary material and enter its handle at the same time - choose one.</message>
+
+	<message key="plugins.importexport.paperPackageUpload.suppData">Supplementary Data</message>
+	<message key="plugins.importexport.paperPackageUpload.suppDescription">Choose the file to be used as supplementary material.</message> 
+	<message key="plugins.importexport.paperPackageUpload.suppRequired">You must upload a supplementary file for this submission.</message>
+	<message key="plugins.importexport.paperPackageUpload.suppFile">Supplementary File</message>
+	<message key="plugins.importexport.paperPackageUpload.replaceSuppFile">Replace supplementary file</message>
+
+        <message key="plugins.importexport.paperPackageUpload.titleAndAbstract">Title, Abstract and Original Journal</message>
+        <message key="plugins.importexport.paperPackageUpload.originalJournal">Original Journal/ Conference</message>
+        <message key="plugins.importexport.paperPackageUpload.originalJournalRequired">Please enter the Original Journal/ Conference of your article</message>
+
+	<message key="plugins.importexport.paperPackageUpload.success">Article Added</message>
+	<message key="plugins.importexport.paperPackageUpload.successDescription">Article creation was successful.</message>
+	<message key="plugins.importexport.paperPackageUpload.successReturn">Return to PaperPackageUpload plugin.</message>
+</locale>

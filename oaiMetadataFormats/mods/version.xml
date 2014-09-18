@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE version SYSTEM "../../../lib/pkp/dtd/pluginVersion.dtd">
+
+
+<version>
+        <application>mods</application>
+        <type>plugins.oaiMetadataFormats</type>
+        <release>0.42</release>
+        <date>2013-10-16</date>
+</version>

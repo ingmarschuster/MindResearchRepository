@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE locale SYSTEM "../../../../../lib/pkp/dtd/locale.dtd">
+
+<!--
+  * locale.xml
+  *
+  * Copyright (c) 2013 University of Potsdam, 2003-2012 John Willinsky
+  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
+  *
+  * Localization strings for the en_US (U.S. English) locale.
+  *
+  * $Id$
+  -->
+
+<locale name="en_US" full_name="U.S. English">
+	<message key="plugins.importexport.paperPackageEdit.addToExisting">Add to an existing issue:</message>
+	<message key="plugins.importexport.paperPackageEdit.chooseDestination">Submission Destination</message>
+	<message key="plugins.importexport.paperPackageEdit.chooseDestinationDescription">Select whether to add new submissions to an existing issue or to leave in the editing queue.</message>
+	<message key="plugins.importexport.paperPackageEdit.displayName">PaperPackageEdit Plugin</message>
+	<message key="plugins.importexport.paperPackageEdit.description">Edit submission plugin</message>
+	<message key="plugins.importexport.paperPackageEdit.descriptionLong">This plugin allows you to make changes on former submissions. If the submission you are going to change, was added more than one week ago, this will create another version of your package. Otherwise the existing package is going to be changed.</message>
+	<message key="plugins.importexport.paperPackageEdit.issueRequired">You must select an issue to add the article to.</message>
+	<message key="plugins.importexport.paperPackageEdit.leaveUnpublished">Leave unpublished</message>
+        <message key="plugins.importexport.paperPackageEdit.datePublished">Change date published</message>
+        <message key="plugins.importexport.paperPackageEdit.saveAndCreateAnother">Save and Create Another</message>
+	<message key="plugins.importexport.paperPackageEdit.submissionData">Submission Data</message>
+	<message key="plugins.importexport.paperPackageEdit.submissionFile">Submission File</message>
+       	<message key="plugins.importexport.paperPackageEdit.subDataDescription">If your publication already has a handle/DOI please enter it. Otherwise please upload your materials in the designated fields.</message>
+	<message key="plugins.importexport.paperPackageEdit.submissionDescription">Choose the file to be used as the final galley file for this submission.</message>	
+	<message key="plugins.importexport.paperPackageEdit.submissionRequired">You must upload a file for this submission.</message>	
+        <message key="plugins.importexport.paperPackageEdit.supplRequired">You must upload supplementary material.</message>
+        <message key="plugins.importexport.paperPackageEdit.supplUnpackable">Sorry, we're not able to unpack the format your package has.</message>
+	<message key="plugins.importexport.paperPackageEdit.uploadSubmissionFile">Upload new submission file</message>
+	<message key="plugins.importexport.paperPackageEdit.replace">Replace</message>
+	<message key="plugins.importexport.paperPackageEdit.uploadSuppFile">Upload new supplementary file</message>
+	<message key="plugins.importexport.paperPackageEdit.dateRequired">You must enter the date of publication for the original paper.</message>
+        <message key="plugins.importexport.paperPackageEdit.authorRequiredFields">The first and last name of the author is required</message>
+        
+	<message key="plugins.importexport.paperPackageEdit.revertTo">Revert to </message>
+        <message key="plugins.importexport.paperPackageEdit.revertToLastFile">Revert to last file</message>
+	<message key="plugins.importexport.paperPackageEdit.nix"></message>
+	<message key="plugins.importexport.paperPackageEdit.submissionHandleDescription">Replace your submission file or the handle of it here.</message>
+	<message key="plugins.importexport.paperPackageEdit.supplHandleDescription">Replace your supplementary material or the handle of it here.</message>
+        <message key="plugins.importexport.paperPackageEdit.handleHead">Handle</message>
+	<message key="plugins.importexport.paperPackageEdit.submissionHandle">New handle/DOI of submission file</message>
+        <message key="plugins.importexport.paperPackageEdit.supplHandle">New handle/DOI of supplementary material</message>	
+        <message key="plugins.importexport.paperPackageEdit.submissionHandleIsWrong">The handle/DOI of your submission file is required to be valid.</message>
+        <message key="plugins.importexport.paperPackageEdit.supplHandleIsWrong">The handle/DOI of your supplementary material is required to be valid.</message>
+        <message key="plugins.importexport.paperPackageEdit.submissionHandleRequired">You must upload a file for this submission or enter its handle.</message> 
+        <message key="plugins.importexport.paperPackageEdit.supplHandleRequired">You must upload your supplementary material or enter its handle.</message>
+        <message key="plugins.importexport.paperPackageEdit.submissionHandleOrFile">Please don't upload a submission file and enter its handle at the same time - choose one.</message>
+	<message key="plugins.importexport.paperPackageEdit.supplHandleOrFile">Please don't upload supplementary material and enter its handle at the same time - choose one.</message>
+
+	<message key="plugins.importexport.paperPackageEdit.suppData">Supplementary Data</message>
+	<message key="plugins.importexport.paperPackageEdit.suppDescription">Choose the file to be used as supplementary material.</message> 
+	<message key="plugins.importexport.paperPackageEdit.suppRequired">You must upload a supplementary file for this submission.</message>
+	<message key="plugins.importexport.paperPackageEdit.suppFile">Supplementary File</message>
+	<message key="plugins.importexport.paperPackageEdit.replaceSuppFile">Replace supplementary file</message>
+
+        <message key="plugins.importexport.paperPackageEdit.titleAndAbstract">Title, Abstract and Original Journal</message>
+        <message key="plugins.importexport.paperPackageEdit.originalJournal">Original Journal/ Conference</message>
+        <message key="plugins.importexport.paperPackageEdit.originalJournalRequired">Please enter the Original Journal/ Conference of your article</message>
+
+	<message key="plugins.importexport.paperPackageEdit.success">Article Changed</message>
+	<message key="plugins.importexport.paperPackageEdit.successDescription">Changing Article was successful. New Version was created.</message>
+	<message key="plugins.importexport.paperPackageEdit.successReturn">Return to PaperPackageEdit plugin.</message>
+        
+        <message key="plugins.importexport.paperPackageEdit.accessDenied">Access Denied</message>
+	<message key="plugins.importexport.paperPackageEdit.accessDeniedDescription">As you did not upload this article, you are not allowed to make any changes on it.</message>
+</locale>

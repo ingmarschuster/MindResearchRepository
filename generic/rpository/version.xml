@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE version SYSTEM "../../../lib/pkp/dtd/pluginVersion.dtd">
+
+
+<version>
+        <application>rpository</application>
+        <type>plugins.generic</type>
+        <release>0.9.8.32</release>
+        <date>2013-09-22/date>
+</version>

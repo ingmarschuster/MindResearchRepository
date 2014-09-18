@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE locale SYSTEM "../../../../../lib/pkp/dtd/locale.dtd">
+
+<!--
+  * locale.xml
+  *
+  * Copyright (c) 2000-2012 John Willinsky
+  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
+  *
+  * Localization strings for the en_US (U.S. English) locale.
+  *
+  * $Id: locale.xml,v 1.1 2009/06/16 21:09:19 mcrider Exp $
+  -->
+
+<locale name="it_IT" full_name="Italiano">
+	<message key="plugins.importexport.paperPackageUpload.addToExisting">Aggiungi a un fascicolo esistente:</message>
+	<message key="plugins.importexport.paperPackageUpload.chooseDestination">Destinazione della submission</message>
+	<message key="plugins.importexport.paperPackageUpload.chooseDestinationDescription">Seleziona se aggiungere le nuove submission a un fascicolo esistente o se lasciarle nella coda di editing.</message>
+	<message key="plugins.importexport.paperPackageUpload.displayName">PaperPackageUpload</message>
+	<message key="plugins.importexport.paperPackageUpload.description">Caricamento rapido di articoli</message>
+	<message key="plugins.importexport.paperPackageUpload.descriptionLong">Questo plugin permette di aggiungere rapidamente articoli alla coda di editing o direttamente a un fascicolo.</message>
+	<message key="plugins.importexport.paperPackageUpload.issueRequired">Devi selezionare il fascicolo al quale aggiungere l'articolo.</message>
+	<message key="plugins.importexport.paperPackageUpload.leaveUnpublished">Lascia non pubblicato</message>
+	<message key="plugins.importexport.paperPackageUpload.saveAndCreateAnother">Salva e creane un altro</message>
+	<message key="plugins.importexport.paperPackageUpload.submissionData">Dati della submission</message>	
+	<message key="plugins.importexport.paperPackageUpload.submissionDescription">Scegli il file da utilizzare per la pubblicazione.</message>	
+	<message key="plugins.importexport.paperPackageUpload.submissionRequired">Devi caricare un file per questa submission.</message>	
+	<message key="plugins.importexport.paperPackageUpload.success">Articolo aggiunto.</message>
+	<message key="plugins.importexport.paperPackageUpload.successDescription">La creazione dell'articolo è completa.</message>
+	<message key="plugins.importexport.paperPackageUpload.successReturn">Ritorna al plugin PaperPackageUpload.</message>
+</locale>

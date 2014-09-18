@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE locale SYSTEM "../../../../../lib/pkp/dtd/locale.dtd">
+
+<!--
+  * locale.xml
+  *
+  * Copyright (c) 2013 University of Potsdam, 2003-2012 John Willinsky
+  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
+  *
+  * Localization strings for the pt_BR locale.
+  *
+  * $Id$
+  -->
+
+<locale name="pt_BR" full_name="Português (Brasil)">
+	<message key="plugins.importexport.paperPackageUpload.addToExisting">Incluir na edição existente:</message>
+	<message key="plugins.importexport.paperPackageUpload.chooseDestination">Destino da submissão</message>
+	<message key="plugins.importexport.paperPackageUpload.chooseDestinationDescription">Escolha se deseja incluir novas submissões a uma edição já existente ou deixar na fila de edição.</message>
+	<message key="plugins.importexport.paperPackageUpload.displayName">Submissão rápida</message>
+	<message key="plugins.importexport.paperPackageUpload.description">Plugin de submissão em 1 passo</message>
+	<message key="plugins.importexport.paperPackageUpload.descriptionLong">Este plugin permite incluir rapidamente submissões completas na fila de edição ou diretamente a uma edição existente.</message>
+	<message key="plugins.importexport.paperPackageUpload.issueRequired">Escolha uma edição na qual incluir o artigo.</message>
+	<message key="plugins.importexport.paperPackageUpload.leaveUnpublished">Deixar não publicado</message>
+	<message key="plugins.importexport.paperPackageUpload.saveAndCreateAnother">Salvar e criar outra</message>
+	<message key="plugins.importexport.paperPackageUpload.submissionData">Dados da submissão</message>	
+	<message key="plugins.importexport.paperPackageUpload.submissionDescription">Escolha o arquivo a ser usado como versão para publicação desta submissão.</message>	
+	<message key="plugins.importexport.paperPackageUpload.submissionRequired">É necessário enviar um arquivo.</message>	
+	<message key="plugins.importexport.paperPackageUpload.success">Artigo incluído</message>
+	<message key="plugins.importexport.paperPackageUpload.successDescription">Artigo criado com sucesso.</message>
+	<message key="plugins.importexport.paperPackageUpload.successReturn">Voltar à submissão rápida.</message>
+</locale>
