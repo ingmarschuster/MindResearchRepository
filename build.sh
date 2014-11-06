@@ -1,13 +1,13 @@
 #!/bin/bash
 
 RELEASEDIR=`dirname $0`/releases/
-PLUGINSRCDIR="$1"
+PLUGINSRCDIR=`echo "$1" | sed "s|/\$||"`
 
 if [ "$1" == ALL ]; then
     for plugin in `find . -name version.xml`; do
         $0 `dirname $plugin`
-        exit 0
     done
+    exit 0
 fi
 
 if [ ! -d $PLUGINSRCDIR ]; then
@@ -50,4 +50,4 @@ if [ ! -d $RELEASEDIR ]; then
     fi
 fi
 
-gnutar --xform="s|^$srcdir|$plugin_name|g" --xform="s|\.template$||g" -czf `dirname $0`/releases/"$plugin_name-$plugin_release.tar.gz" "$srcdir"
+gnutar --xform="s|^$srcdir|$plugin_name|g" --xform="s|\.template$||g" -czf $RELEASEDIR/"$plugin_name-$plugin_release.tar.gz" "$srcdir"

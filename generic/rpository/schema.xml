@@ -20,11 +20,11 @@
         <field name="major" type="I4">
 	    <NOTNULL/>
 	    <DEFAULT VALUE="0"/>
-	</fiel>
+	</field>
 	<field name="minor" type="I4">
 	    <NOTNULL/>
 	    <DEFAULT VALUE="0"/>
-	</fiel>
+	</field>
 	<field name="date" type="D">
             <NOTNULL/>
         </field>
