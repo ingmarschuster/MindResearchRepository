@@ -4,8 +4,8 @@
 <version>
         <application>countblock</application>
         <type>plugins.blocks</type>
-        <release>0.0.0.1</release>
-        <date>2013-03-21</date>
+        <release>0.0.1.0</release>
+        <date>2014-11-13</date>
         <lazy-load>1</lazy-load>
         <class>CountBlockPlugin</class>
 </version>
