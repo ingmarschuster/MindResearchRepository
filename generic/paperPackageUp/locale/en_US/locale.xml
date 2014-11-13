@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE locale SYSTEM "../../../../../lib/pkp/dtd/locale.dtd">
+
+<!--
+  * locale.xml
+  *
+  * Copyright (c) 2013 University of Potsdam, 2003-2012 John Willinsky
+  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
+  *
+  * Localization strings for the en_US (U.S. English) locale.
+  *
+  * $Id$
+  -->
+
+<locale name="en_US" full_name="U.S. English">
+	<message key="plugins.generic.paperPackageUpload.addToExisting">Add to an existing issue:</message>
+	<message key="plugins.generic.paperPackageUpload.chooseDestination">Submission Destination</message>
+	<message key="plugins.generic.paperPackageUpload.chooseDestinationDescription">Select whether to add new submissions to an existing issue or to leave in the editing queue.</message>
+	<message key="plugins.generic.paperPackageUpload.displayName">Upload Paper Package</message>
+	<message key="plugins.generic.paperPackageUpload.description">One-step submission plugin</message>
+	<message key="plugins.generic.paperPackageUpload.descriptionLong">This plugin allows you to quickly add complete submissions to the editing queue or directly into an issue.</message>
+	<message key="plugins.generic.paperPackageUpload.issueRequired">You must select an issue to add the article to.</message>
+	<message key="plugins.generic.paperPackageUpload.leaveUnpublished">Leave unpublished</message>
+        <message key="plugins.generic.paperPackageUpload.datePublished">Published</message>
+        <message key="plugins.generic.paperPackageUpload.saveAndCreateAnother">Save and Create Another</message>
+	<message key="plugins.generic.paperPackageUpload.submissionData">Submission Data</message>
+	<message key="plugins.generic.paperPackageUpload.submissionFile">Submission File</message>
+       	<message key="plugins.generic.paperPackageUpload.subDataDescription">If your publication already has a handle/DOI please enter it. Otherwise please upload your materials in the designated fields.</message>
+	<message key="plugins.generic.paperPackageUpload.submissionDescription">Choose the file to be used as the final galley file for this submission.</message>	
+	<message key="plugins.generic.paperPackageUpload.submissionRequired">You must upload a file for this submission.</message>	
+        <message key="plugins.generic.paperPackageUpload.supplRequired">You must upload supplementary material.</message>
+        <message key="plugins.generic.paperPackageUpload.supplUnpackable">Sorry, we're not able to unpack the format your package has.</message>
+	<message key="plugins.generic.paperPackageUpload.uploadSubmissionFile">Upload submission file</message>
+	<message key="plugins.generic.paperPackageUpload.uploadSuppFile">Upload supplementary file</message>
+	<message key="plugins.generic.paperPackageUpload.dateRequired">You must enter the date of publication for the original paper.</message>
+        <message key="plugins.generic.paperPackageUpload.authorRequiredFields">The first and last name of the author is required</message>
+
+        <message key="plugins.generic.paperPackageUpload.submissionHandleDescription">If your publication already has a handle/DOI please enter it. Otherwise please upload the file to be used as the final galley in the upload field.</message>
+	<message key="plugins.generic.paperPackageUpload.supplHandleDescription">If your supplementary material already has a handle/DOI please enter it. Otherwise please upload the file to be used as supplementary material in the upload field.</message>
+        <message key="plugins.generic.paperPackageUpload.handleHead">Handle</message>
+	<message key="plugins.generic.paperPackageUpload.submissionHandle">Handle/DOI of submission file</message>
+        <message key="plugins.generic.paperPackageUpload.supplHandle">Handle/DOI of supplementary material</message>	
+        <message key="plugins.generic.paperPackageUpload.submissionHandleIsWrong">The handle/DOI of your submission file is required to be valid.</message>
+        <message key="plugins.generic.paperPackageUpload.supplHandleIsWrong">The handle/DOI of your supplementary material is required to be valid.</message>
+        <message key="plugins.generic.paperPackageUpload.submissionHandleRequired">You must upload a file for this submission or enter its handle.</message> 
+        <message key="plugins.generic.paperPackageUpload.supplHandleRequired">You must upload your supplementary material or enter its handle.</message>
+        <message key="plugins.generic.paperPackageUpload.submissionHandleOrFile">Please don't upload a submission file and enter its handle at the same time - choose one.</message>
+	<message key="plugins.generic.paperPackageUpload.supplHandleOrFile">Please don't upload supplementary material and enter its handle at the same time - choose one.</message>
+
+	<message key="plugins.generic.paperPackageUpload.suppData">Supplementary Data</message>
+	<message key="plugins.generic.paperPackageUpload.suppDescription">Choose the file to be used as supplementary material.</message> 
+	<message key="plugins.generic.paperPackageUpload.suppRequired">You must upload a supplementary file for this submission.</message>
+	<message key="plugins.generic.paperPackageUpload.suppFile">Supplementary File</message>
+	<message key="plugins.generic.paperPackageUpload.replaceSuppFile">Replace supplementary file</message>
+
+        <message key="plugins.generic.paperPackageUpload.titleAndAbstract">Title, Abstract and Original Journal</message>
+        <message key="plugins.generic.paperPackageUpload.originalJournal">Original Journal/ Conference</message>
+        <message key="plugins.generic.paperPackageUpload.originalJournalRequired">Please enter the Original Journal/ Conference of your article</message>
+
+	<message key="plugins.generic.paperPackageUpload.success">Article Added</message>
+	<message key="plugins.generic.paperPackageUpload.successDescription">Article creation was successful.</message>
+	<message key="plugins.generic.paperPackageUpload.successReturn">Return to PaperPackageUpload plugin.</message>
+</locale>

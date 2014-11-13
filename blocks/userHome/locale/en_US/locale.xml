@@ -15,4 +15,8 @@
 <locale name="en_US" full_name="U.S. English">
 	<message key="plugins.block.userHome.displayName">User Home Block</message>
 	<message key="plugins.block.userHome.description">This plugin provides a block that extends the normal "User Home" view.</message>
+        <message key="plugins.block.userHome.userPackages">Uploaded Packages</message>
+	<message key="plugins.block.userHome.userPackagesDescription">These are the packages you have uploaded. Use the links below to edit or to view your packages.</message> 
+        <message key="plugins.block.userHome.UploadDescription">Or you can </message>
+	<message key="plugins.block.userHome.UploadPlugin"> upload another package</message>
 </locale>

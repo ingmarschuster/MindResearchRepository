@@ -54,7 +54,15 @@
         <field name="current" type="I1">
             <NOTNULL/>
         </field>
-        <field name="date" type="D">
+        <field name="major" type="I4">
+            <NOTNULL/>
+            <DEFAULT VALUE="0"/>
+        </field>
+        <field name="minor" type="I4">
+            <NOTNULL/>
+            <DEFAULT VALUE="0"/>
+        </field>
+	<field name="date" type="D">
             <NOTNULL/>
         </field>
         <field name="pidv1" type="C2" size="60">
