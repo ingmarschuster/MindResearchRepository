@@ -11,7 +11,7 @@ class RpositoryPlugin extends GenericPlugin {
     // register hooks and daos to the ojs system
     function register($category, $path){
         if(parent::register($category, $path)){
-            Registry::set('RpositoryPlugIn', $this);
+	    Registry::set('RpositoryPlugIn', $this);
             HookRegistry::register('articledao::_updatearticle', array(&$this, 'callback_update'));
             HookRegistry::register('publishedarticledao::_updatepublishedarticle', array(&$this, 'callback_update'));
             

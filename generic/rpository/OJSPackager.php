@@ -128,7 +128,7 @@ class OJSPackager{
         $pkgName = $pkgName . $temp[0] . $suffix;
         unset($temp);
         $pd->set("Package", $pkgName);
-        
+       
         // path to write the package to
         $archive = sys_get_temp_dir() . '/' . $pkgName;
         

@@ -88,10 +88,6 @@ class RpositoryBlockPlugin extends BlockPlugin {
         $userIsEditor = false;
           if($userId == $articleUserId){
  	      $userIsEditor = true;
-	      error_log('OJS - RpositoryBlockPlugin: UserID ' . $userId  . ' und ArticleUserID ' . $articleUserId . ' sind gleich.');
-	  }
-	  else{
-	      error_log('OJS - RpositoryBlockPlugin: UserID ' . $userId  . ' und ArticleUserID ' . $articleUserId . ' sind NICHT gleich.');
 	  }
 	}
 	else{
@@ -100,7 +96,7 @@ class RpositoryBlockPlugin extends BlockPlugin {
 	
 	
         $templateMgr->assign('userIsEditor', $userIsEditor);
-	$templateMgr->assign('paperPackageEditPlugin', "/index.php/mr2/manager/importexport/plugin/PaperPackageEditPlugin/article=" . $articleId );
+	$templateMgr->assign('paperPackageEditPlugin', "/index.php/mr2/PaperPackageEdPlugin/view/article=" . $articleId );
 	
 	return parent::getContents($templateMgr);
     }

@@ -8,9 +8,9 @@
  *
  * $Id$
  *}
-<!--<form method="post" action="{plugin_url path="userPackages"}">-->
+     <h2>{translate key="plugins.block.userHome.userPackages"}</h2>
      <p>{translate key="plugins.block.userHome.userPackagesDescription"}</p>
-{if $isUserHome}
+     <p>{translate key="plugins.block.userHome.UploadDescription} <a href="{$uploadLink}">{translate key="plugins.block.userHome.UploadPlugin"}</a></p>
 {if !isset($user)}
      <p>{translate key="plugins.block.userHome.noPackagesDescription"}</p>
 {else}
@@ -23,12 +23,10 @@
            </tr>
            <tr valign="top">
                <td align="left" width="80%" class="label">{$article->getAuthorString()}</td>
-           <!--<td width="20%" class="label">{translate key="plugins.generic.rpository.nix"}</td>-->
            </tr>
       </table>
 {/foreach}
 </div>
-{/if}
 {/if}
 <!--</form>-->
 

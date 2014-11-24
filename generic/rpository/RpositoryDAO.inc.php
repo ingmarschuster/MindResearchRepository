@@ -38,7 +38,6 @@ class RpositoryDAO extends DAO{
     }
     
     public function insertNewEntry($article_id, $filename, $pidv1 = NULL, $pidv2 = NULL, $major = 1, $minor = 0){
-        error_log('OJS - Rpository: Insert new Entry wurde aufgerufen.');
 	return $this->update("INSERT INTO rpository (articleId, fileName, current, major, minor, date, pidv1, pidv2) VALUES (?, ?, 1, ?, ?, CURDATE(), ?, ?)", array($article_id, $filename, $major, $minor, $pidv1, $pidv2));
     }
     public function test ($articleId){
@@ -116,15 +115,12 @@ class RpositoryDAO extends DAO{
         else{
             $date = new DateTime();
             $today = $date->getTimestamp();
-	    error_log('OJS - RpositoryDAO: packageCreatedIn... Wert von today: ' . $today . ' kommt da was?');
             //$lastModified = strtotime($result['date']);
              $dateOfPackage = new DateTime($result['date']);
 	     $lastModified = $dateOfPackage->getTimestamp();
-	     error_log('OJS - RpositoryDAO: packageCreatedIn... Wert von lastModified: ' . $lastModified . ' und was kommt hier?');
             //  2 days = 8,640,000 msec
 	    if(($today - $lastModified) < 172800){
 	    //if(($today - $lastModified) < 8640000){
-                error_log('OJS - RpositoryDAO: packageCreatedIn... Paket angeblich jünger als zwei Tage. Hier der Wert: ' . ($today - $lastModified));
 		return $result['filename'];
             }
             else{
@@ -181,7 +177,6 @@ class RpositoryDAO extends DAO{
               $versionExists = TRUE;
         }
 	$versionNumbers = $this->getMajorMinor($articleId);
-	error_log('OJS - Rpository: updateRepository wird aufgerufen.');
 
 
 	//delete old version and insert new version with the old name, in the case of package created in last two days
@@ -200,7 +195,6 @@ class RpositoryDAO extends DAO{
                 error_log('OJS - rpository: error rewriting package to repository');
                 return NULL;
             }
-	    error_log('OJS - RpositoryDAO: Yeahy it works!');
             unset($success);
             $success = $this->insertNewEntry($articleId, $oldVersion['filename'], $oldPid[0], $oldPid[1], $versionNumbers['major'], $versionNumbers['minor']);
         } elseif(!$versionExists){
@@ -229,11 +223,9 @@ class RpositoryDAO extends DAO{
        }else{
 	 // if a package older than two days is edited, change the name to a newer version
          $nameBegins = preg_replace("/_1\.\d\.tar\.gz/", "", $oldVersion['filename']);
-	 error_log('OJS - RpositoryDAO: Abschneiden liefert den Anfang des Paketnamens als: ' . $nameBegins);
 	 //$versionNumbers = $this->getMajorMinor($articleId);
          $minorNext = strval(intval($versionNumbers['minor']) + 1);
 	 $newVersionName = $nameBegins . '_' . $versionNumbers['major'] . '.' . $minorNext . '.tar.gz';        
-         error_log('OJS - RpositoryDAO: was ist minorNext?: ' . $minorNext . ' und newVersionName lautet ' . $newVersionName);
 	  $success = rename($writtenArchive, $plugin->getSetting(0, 'documentroot') . $plugin->getSetting(0,'path') . $newVersionName);
 	  if(!$success){
              error_log('OJS - rpository: error writing EDITED VERSION of package to repository');
@@ -629,7 +621,8 @@ class RpositoryDAO extends DAO{
      $articleFile->setViewable($row['viewable']);
      HookRegistry::call('ArticleFileDAO::_returnArticleFileFromRow', array(&$articleFile, &$row));
      return $articleFile;
-   }*/
+   }
+   */
 
 
 
