@@ -1,0 +1,54 @@
+--- index_original.tpl	2014-10-30 08:51:34.207061881 +0100
++++ index_modified.tpl	2014-10-30 08:54:10.271061878 +0100
+@@ -25,8 +25,10 @@
+ {foreach from=$userJournals item=journal}
+ 	<div id="journal-{$journal->getPath()|escape}">
+ 	{assign var="hasRole" value=1}
+-	{if !$currentJournal}<h4><a href="{url journal=$journal->getPath() page="user"}">{$journal->getLocalizedTitle()|escape}</a></h4>
+-	{else}<h3>{$journal->getLocalizedTitle()|escape}</h3>{/if} 
++        {if $isSiteAdmin}
++		{if !$currentJournal}<h4><a href="{url journal=$journal->getPath() page="user"}">{$journal->getLocalizedTitle()|escape}</a></h4>
++		{else}<h3>{$journal->getLocalizedTitle()|escape}</h3>{/if} 
++	{/if}
+ 	{assign var="journalId" value=$journal->getId()}
+ 	{assign var="journalPath" value=$journal->getPath()}
+ 	<table width="100%" class="info">
+@@ -121,21 +123,23 @@
+ 				<td align="right"></td>
+ 			</tr>
+ 		{/if}
+-		{if $isValid.Author.$journalId || $isValid.Reviewer.$journalId}
+-			<tr><td class="separator" width="100%" colspan="5">&nbsp;</td></tr>
+-		{/if}
+-		{if $isValid.Author.$journalId}
+-			{assign var="authorSubmissionsCount" value=$submissionsCount.Author.$journalId}
+-			<tr>
+-				<td>&#187; <a href="{url journal=$journalPath page="author"}">{translate key="user.role.author"}</a></td>
+-				<td></td>
+-				<td></td>
+-				<td>{if $authorSubmissionsCount[0]}
+-						<a href="{url journal=$journalPath page="author"}">{$authorSubmissionsCount[0]} {translate key="common.queue.short.active"}</a>
+-					{else}<span class="disabled">0 {translate key="common.queue.short.active"}</span>{/if}
+-				</td>
+-				<td align="right">[<a href="{url journal=$journalPath page="author" op="submit"}">{translate key="author.submit"}</a>]</td>
+-			</tr>
++		{if $isSiteAdmin}
++			{if $isValid.Author.$journalId || $isValid.Reviewer.$journalId}
++				<tr><td class="separator" width="100%" colspan="5">&nbsp;</td></tr>
++			{/if}
++			{if $isValid.Author.$journalId}
++				{assign var="authorSubmissionsCount" value=$submissionsCount.Author.$journalId}
++				<tr>
++					<td>&#187; <a href="{url journal=$journalPath page="author"}">{translate key="user.role.author"}</a></td>
++					<td></td>
++					<td></td>
++					<td>{if $authorSubmissionsCount[0]}
++							<a href="{url journal=$journalPath page="author"}">{$authorSubmissionsCount[0]} {translate key="common.queue.short.active"}</a>
++						{else}<span class="disabled">0 {translate key="common.queue.short.active"}</span>{/if}
++					</td>
++					<td align="right">[<a href="{url journal=$journalPath page="author" op="submit"}">{translate key="author.submit"}</a>]</td>
++				</tr>
++			{/if}
+ 		{/if}
+ 		{if $isValid.Reviewer.$journalId}
+ 			{assign var="reviewerSubmissionsCount" value=$submissionsCount.Reviewer.$journalId}
