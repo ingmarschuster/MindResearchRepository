@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE locale SYSTEM "../../../../../lib/pkp/dtd/locale.dtd">
+
+<!--
+  * locale.xml
+  *
+  * Copyright (c) 2003-2012 John Willinsky
+  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
+  *
+  * Localization strings for the en_US (U.S. English) locale.
+  *
+  * $Id$
+  -->
+ 
+<locale name="en_US" full_name="U.S. English">
+	<message key="plugins.block.extendedUser.displayName">Extended User Block</message>
+	<message key="plugins.block.extendedUser.description">This plugin provides sidebar user account tools (e.g. login, logout, profile link, etc).</message>
+	<message key="plugins.block.extendedUser.loggedInAs">You are logged in as...</message>
+	<message key="plugins.block.extendedUser.myJournals">My Journals</message>
+	<message key="plugins.block.extendedUser.myProfile">My Profile</message>
+    <message key="plugins.block.extendedUser.myPackages">My Packages</message>
+	<message key="plugins.block.extendedUser.logout">Log Out</message>
+	<message key="plugins.block.extendedUser.signOutAsUser">Log Out as User</message>
+	<message key="plugins.block.extendedUser.rememberMe">Remember me</message>
+</locale>
