@@ -22,6 +22,7 @@
 			{/if}
 		<!--	<li><a href="{url page="user" op="profile"}">{translate key="plugins.block.extendedUser.myProfile"}</a></li> -->
 			<li><a href="{url page="PackagesPlugin" op="view"}">{translate key="plugins.block.extendedUser.myPackages"}</a></li>
+			<li><a href="{$paperPackageUpPlugin}">Upload Paper Package</a></li>
 			<li><a href="{url page="login" op="signOut"}">{translate key="plugins.block.extendedUser.logout"}</a></li>
 			{if $userSession->getSessionVar('signedInAs')}
 				<li><a href="{url page="login" op="signOutAsUser"}">{translate key="plugins.block.extendedUser.signOutAsUser"}</a></li>

@@ -63,6 +63,7 @@ class ExtendedUserBlockPlugin extends BlockPlugin {
 			$templateMgr->assign_by_ref('userSession', $session);
 			$templateMgr->assign('loggedInUsername', $session->getSessionVar('username'));
 			$loginUrl = Request::url(null, 'login', 'signIn');
+		        $templateMgr->assign('paperPackageUpPlugin',"/index.php/mr2/PaperPackageUpPlugin/view/");
 			if (Config::getVar('security', 'force_login_ssl')) {
 				$loginUrl = String::regexp_replace('/^http:/', 'https:', $loginUrl);
 			}
