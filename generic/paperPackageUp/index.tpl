@@ -38,8 +38,6 @@ function updateAbstractRequired() {
 </script>
 {/literal}
 
-<p>{translate key="plugins.generic.paperPackageUpload.descriptionLong"}</p>
-
 <form enctype="multipart/form-data" name="submit" method="post" action="{plugin_url path="saveSubmit"}">
 
 {include file="common/formErrors.tpl"}
@@ -74,7 +72,7 @@ function updateAbstractRequired() {
 {/if}
 
 <div id="chooseDestination">
-	<h3>{translate key="plugins.generic.paperPackageUpload.chooseDestination"}</h3>
+<!--	<h3>{translate key="plugins.generic.paperPackageUpload.chooseDestination"}</h3>
 
 	<p>{translate key="plugins.generic.paperPackageUpload.chooseDestinationDescription"}</p>
 
@@ -95,45 +93,14 @@ function updateAbstractRequired() {
 			<td class="value">
 				<select name="issueId" id="issueId" size="1" class="selectMenu">{html_options options=$issueOptions selected=$issueNumber}</select>
 			</td>
-		</tr>
-		<tr valign="top">
-			<td class="label">{fieldLabel name="datePublished" required="true" key="plugins.generic.paperPackageUpload.datePublished"}</td>
-			<td class="value">
-				<input type="hidden" name="datePublishedMonth" value="01">
-				<input type="hidden" name="datePublishedDay" value="1">
-				{* Find good values for starting and ending year options *}
-				{assign var=currentYear value=$smarty.now|date_format:"%Y"}
-				{if $datePublished}
-					{assign var=publishedYear value=$datePublished|date_format:"%Y"}
-					{math|assign:"minYear" equation="min(x,y)-10" x=$publishedYear y=$currentYear}
-					{math|assign:"maxYear" equation="max(x,y)+2" x=$publishedYear y=$currentYear}
-				{else}
-					{* No issue publication date info *}
-					{math|assign:"minYear" equation="x-10" x=$currentYear}
-					{math|assign:"maxYear" equation="x+2" x=$currentYear}
-				{/if}
-				{html_select_date prefix="datePublished" time=$datePublished|default:"---" all_extra="class=\"selectMenu\"" start_year=$minYear end_year=$maxYear year_empty="common.year"|translate month_empty="common.month"|translate day_empty="common.day"|translate display_years=true display_months=false display_days=false}
-			</td>
-		</tr>
-		{if $enablePageNumber}
-			<tr valign="top">
-				<td class="label">&nbsp;</td>
-				<td colspan="2" class="value">
-					{fieldLabel name="pages" key="editor.issues.pages"}&nbsp;
-					<input name="pages" id="pages" {if $publishToIssue}value="{$pages|escape}" {else}disabled="disabled" {/if}size="20" maxlength="40" class="textField" />
-					<input type="hidden" name="pagesHidden" value="{$pages|escape}" />
-				</td>
-			</tr>
-		{/if}{* $enablePageNumber *}
-	</table>
+		</tr> -->
 </div> <!-- /chooseDestination -->
-	 
 <div class="separator"></div>
 
 <br />
-
-<h3>{translate key="plugins.generic.paperPackageUpload.submissionData"}</h3>
-
+<!--        <table class="data" width="100%">
+      	
+	</table> -->
 
 <div id="submission" style="margin: 0 10px 0 10px;">
 	<div id="section">
@@ -162,25 +129,38 @@ function updateAbstractRequired() {
 
 
 	<div id="submissionFile">
-            <h4>{fieldLabel required="true" key="plugins.generic.paperPackageUpload.submissionFile"}</h4>
+
+	    <h4>{fieldLabel required="true" key="plugins.generic.paperPackageUpload.submissionFile"}</h4>
 		<table class="data" width="100%">
 		{if $submissionFile}
 		<tr valign="top">
 			<td width="30%" class="label">{translate key="common.originalFileName"}</td>
-			<td width="70%" class="value">{$submissionFile->getOriginalFileName()|escape}</td>
+			<td width="70%" class="value"><b>{$submissionFile->getOriginalFileName()|escape}</b></td>
 		</tr>
-		<tr valign="top">
+<!--		<tr valign="top">
 			<td width="30%" class="label">{translate key="common.fileSize"}</td>
 			<td width="70%" class="value">{$submissionFile->getNiceFileSize()}</td>
 		</tr>
 		<tr valign="top">
 			<td width="30%" class="label">{translate key="common.dateUploaded"}</td>
 			<td width="70%" class="value">{$submissionFile->getDateUploaded()|date_format:$datetimeFormatShort}</td>
-		</tr>
+		</tr> -->
+                <tr valign="top">
+                        <td width="30%" class="label"> </td>
+                        <td width="70%" class="value"> size {$submissionFile->getNiceFileSize()} date uploaded {$submissionFile->getDateUploaded()|date_format:$datetimeFormatShort} </td>
+                </tr>
 		{else}
 		<tr valign="top">
 			<td colspan="2" class="nodata">{translate key="plugins.generic.paperPackageUpload.submissionHandleDescription"}</td>
 		</tr>
+                <tr valign="top">
+                        <td width="30%" class="label">{translate key="common.originalFileName"}</td>
+                        <td width="70%" class="value">none</td>
+                </tr>
+                <tr valign="top">
+                        <td width="30%" class="label"> </td>
+                        <td width="70%" class="value"> size - date uploaded - </td>
+                </tr>
 		{/if}
 		</table>
 	</div> <!-- /submissionFile -->
@@ -207,7 +187,25 @@ function updateAbstractRequired() {
 				{/if}
 			</td>
 			<td width="70%" class="value">
-				<input type="file" class="uploadField" name="submissionFile" id="submissionFileUpload" /> <input name="uploadSubmissionFile" type="submit" class="button" value="{translate key="common.upload"}" />
+				<input type="file" class="uploadField" name="submissionFile" id="submissionFileUpload" /><!-- <input name="uploadSubmissionFile" type="submit" class="button" value="{translate key="common.upload"}" /> --> 
+		       <input type="hidden" name="uploadSubmissionFile" value="0" />
+		       <script type="text/javascript">
+		      {literal}
+		       document.getElementById('submissionFileUpload').addEventListener('change', myMethod, false);
+	               function myMethod(evt) {
+	               var files = evt.target.files; 
+		       f= files[0];
+	 	       if (f==undefined) {
+		          // the user has clicked on cancel
+		        }
+	  	        else {
+                           var form = document.submit;
+			   form.uploadSubmissionFile.value = 'Upload';
+                           form.submit();
+		             };
+		         }     
+			{/literal}
+			</script> 
 			</td>
 		</tr>
 		</table>
@@ -219,20 +217,32 @@ function updateAbstractRequired() {
 		{if $supplementaryFile}
 		<tr valign="top">
 			<td width="30%" class="label">{translate key="common.originalFileName"}</td>
-			<td width="70%" class="value">{$supplementaryFile->getOriginalFileName()|escape}</td>
+			<td width="70%" class="value"><b>{$supplementaryFile->getOriginalFileName()|escape}</b></td>
 		</tr>
-		<tr valign="top">
+	<!--	<tr valign="top">
 			<td width="30%" class="label">{translate key="common.fileSize"}</td>
 			<td width="70%" class="value">{$supplementaryFile->getNiceFileSize()}</td>
 		</tr>
 		<tr valign="top">
 			<td width="30%" class="label">{translate key="common.dateUploaded"}</td>
 			<td width="70%" class="value">{$supplementaryFile->getDateUploaded()|date_format:$datetimeFormatShort}</td>
-		</tr>
+		</tr>-->
+		<tr valign="top">
+                        <td width="30%" class="label"> </td>
+                        <td width="70%" class="value"> size {$supplementaryFile->getNiceFileSize()} date uploaded {$supplementaryFile->getDateUploaded()|date_format:$datetimeFormatShort} </td>
+                </tr>
 		{else}
 		<tr valign="top">
 			<td colspan="2" class="nodata">{translate key="plugins.generic.paperPackageUpload.supplHandleDescription"}</td>
 		</tr>
+		<tr valign="top">
+                        <td width="30%" class="label">{translate key="common.originalFileName"}</td>
+                        <td width="70%" class="value">none</td>
+                </tr>
+                <tr valign="top">
+                        <td width="30%" class="label"> </td>
+                        <td width="70%" class="value"> size - date uploaded - </td>
+                </tr>
 		{/if}
 		</table>
 	</div> <!-- /supplementaryFile -->
@@ -261,7 +271,25 @@ function updateAbstractRequired() {
 				{/if}
 			</td>
 			<td width="70%" class="value">
-				<input type="file" class="uploadField" name="supplementaryFile" id="supplementaryFileUpload" /> <input name="uploadSupplementaryFile" type="submit" class="button" value="{translate key="common.upload"}" />
+				<input type="file" class="uploadField" name="supplementaryFile" id="supplementaryFileUpload" /> <!--<input name="uploadSupplementaryFile" type="submit" class="button" value="{translate key="common.upload"}" /> -->
+                   <input type="hidden" name="uploadSupplementaryFile" value="0" />
+                   <script type="text/javascript">
+                   {literal}
+                   document.getElementById('supplementaryFileUpload').addEventListener('change', myMethod, false);
+                   function myMethod(evt) {
+                       var files = evt.target.files; 
+                       f= files[0];
+                       if (f==undefined) {
+                           // the user has clicked on cancel
+                       }
+                       else {
+                           var form = document.submit;
+                           form.uploadSupplementaryFile.value = 'Upload';
+                           form.submit();
+                        };
+                       }     
+                        {/literal}
+                        </script>
 			</td>
 		</tr>
 		</table>
@@ -348,16 +376,20 @@ function updateAbstractRequired() {
 			<input type="hidden" name="authors[0][seq]" value="1" />
 			<table width="100%" class="data">
 			<tr valign="top">
+		<!--		<td width="30%" class="label" id="authors-0-firstName">{fieldLabel name="authors-0-firstName" required="true" key="user.firstName"}</td>
+				<td width="70%" class="value"><input type="text" class="textField" name="authors[0][firstName]" id="authors-0-firstName" size="20" maxlength="40" /></td> -->
 				<td width="30%" class="label">{fieldLabel name="authors-0-firstName" required="true" key="user.firstName"}</td>
-				<td width="70%" class="value"><input type="text" class="textField" name="authors[0][firstName]" id="authors-0-firstName" size="20" maxlength="40" /></td>
+                                <td width="70%" class="value"><input type="text" class="textField" name="authors[0][firstName]" id="authors-0-firstName" size="20" maxlength="40" /></td>
 			</tr>
 			<tr valign="top">
 				<td width="30%" class="label">{fieldLabel name="authors-0-middleName" key="user.middleName"}</td>
 				<td width="70%" class="value"><input type="text" class="textField" name="authors[0][middleName]" id="authors-0-middleName" size="20" maxlength="40" /></td>
 			</tr>
 			<tr valign="top">
+			<!--	<td width="30%" class="label" id="authors-0-lastName">{fieldLabel name="authors-0-lastName" required="true" key="user.lastName"}</td>
+				<td width="70%" class="value"><input type="text" class="textField" name="authors[0][lastName]" id="authors-0-lastName" size="20" maxlength="90" /></td> -->
 				<td width="30%" class="label">{fieldLabel name="authors-0-lastName" required="true" key="user.lastName"}</td>
-				<td width="70%" class="value"><input type="text" class="textField" name="authors[0][lastName]" id="authors-0-lastName" size="20" maxlength="90" /></td>
+                                <td width="70%" class="value"><input type="text" class="textField" name="authors[0][lastName]" id="authors-0-lastName" size="20" maxlength="90" /></td>
 			</tr>
 			<tr valign="top">
 				<td width="30%" class="label">{fieldLabel name="authors-0-affiliation" key="user.affiliation"}</td>
@@ -415,11 +447,45 @@ function updateAbstractRequired() {
 			<td width="70%" class="value"><textarea name="abstract[{$formLocale|escape}]" id="abstract" class="textArea" rows="15" cols="60">{$abstract[$formLocale]|escape}</textarea></td>
 		</tr>
 			<tr valign="top">
-			<td width="30%" class="label">{fieldLabel name="originalJournal" required="true" key="plugins.generic.paperPackageUpload.originalJournal"}</td>
+			<td width="30%" class="label">{fieldLabel name="originalJournal" key="plugins.generic.paperPackageUpload.originalJournal"}</td>
 			<td width="70%" class="value"><input type="text" class="textField" name="originalJournal[{$formLocale|escape}]" id="originalJournal" value="{$originalJournal[$formLocale]|escape}" size="60" maxlength="255" /></td>
 		</tr>
 	
 	</table>
+
+             <table class="data" width="100%">
+                  <tr valign="top">
+                      <p>{translate key="plugins.generic.paperPackageUpload.datePublishedDescription"}</p>
+                         <td width="30%" class="label" id="datePublished">{fieldLabel name="datePublished" required="true" key="plugins.generic.paperPackageUpload.datePublished"}</td>
+                         <td width="70%" class="value">
+                             <input type="hidden" name="datePublishedMonth" value="01">
+                             <input type="hidden" name="datePublishedDay" value="1">
+                             {* Find good values for starting and ending year options *}
+                             {assign var=currentYear value=$smarty.now|date_format:"%Y"}
+                             {if $datePublished}
+                                   {assign var=publishedYear value=$datePublished|date_format:"%Y"}
+                                   {math|assign:"minYear" equation="min(x,y)-20" x=$publishedYear y=$currentYear}
+                                   {math|assign:"maxYear" equation="max(x,y)+2" x=$publishedYear y=$currentYear}
+                             {else}
+                                   {* No issue publication date info *}
+                                   {math|assign:"minYear" equation="x-20" x=$currentYear}
+                                   {math|assign:"maxYear" equation="x+2" x=$currentYear}
+                             {/if}
+                             {html_select_date prefix="datePublished" time=$datePublished|default:"---" all_extra="class=\"selectMenu\"" start_year=$minYear end_year=$maxYear year_empty="common.year"|translate month_empty="common.month"|translate day_empty="common.day"|translate display_years=true display_months=false display_days=false}
+                       </td>
+               </tr>
+               {if $enablePageNumber}
+                       <tr valign="top">
+                             <td class="label">&nbsp;</td>
+                             <td colspan="2" class="value">
+                                    {fieldLabel name="pages" key="editor.issues.pages"}&nbsp;
+                                    <input name="pages" id="pages" {if $publishToIssue}value="{$pages|escape}" {else}disabled="disabled" {/if}size="20" maxlength="40" class="textField" />
+                                    <input type="hidden" name="pagesHidden" value="{$pages|escape}" />
+                             </td>
+                       </tr>
+               {/if}{* $enablePageNumber *}
+        </table>
+
 	</div> <!-- /titleAndAbstract -->
 	
 	<div id="indexing">
@@ -571,9 +637,10 @@ function updateAbstractRequired() {
 
 <div class="separator"></div>
 
-<p><input type="submit" value="{translate key="common.saveAndContinue"}" class="button defaultButton" />   
+<p><input type="submit" value="{translate key="plugins.generic.paperPackageUpload.saveAndContinue"}" class="button defaultButton" />   
 <input type="submit" class="button" name="createAnother" value="{translate key="plugins.generic.paperPackageUpload.saveAndCreateAnother"}" />    
-<input type="button" value="{translate key="common.cancel"}" class="button" onclick="confirmAction('{url page="author"}', '{translate|escape:"jsparam" key="author.submit.cancelSubmission"}')" /></p>
+<!--<input type="button" value="{translate key="common.cancel"}" class="button" onclick="confirmAction('{url page="author"}', '{translate|escape:"jsparam" key="author.submit.cancelSubmission"}')" /></p>-->
+<input type="button" value="{translate key="common.cancel"}" class="button" onclick="confirmAction('{url page="user"}', '{translate|escape:"jsparam" key="paperPackageUp.submit.cancelSubmission"}')" /></p>
 
 <p><span class="formRequired">{translate key="common.requiredField"}</span></p>
 

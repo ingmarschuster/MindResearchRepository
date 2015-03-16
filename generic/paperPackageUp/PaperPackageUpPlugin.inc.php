@@ -197,6 +197,7 @@ class PaperPackageUpPlugin extends GenericPlugin {
 				$form->setData('primaryContact', 0);
 			}
 		} else if (Request::getUserVar('moveAuthor')) {
+		error_log('OJS - PPUpP: moveAuthor wurde genutzt und hatte folgenden Wert ' . Request::getUserVar('moveAuthor'));
 			$editData = true;
 			$moveAuthorDir = Request::getUserVar('moveAuthorDir');
 			$moveAuthorDir = $moveAuthorDir == 'u' ? 'u' : 'd';
@@ -226,11 +227,13 @@ class PaperPackageUpPlugin extends GenericPlugin {
 			}
 			$form->setData('authors', $authors);
 		} else if (Request::getUserVar('uploadSubmissionFile')) {
+			error_log('OJS - PPUpP: saveSubmit mit userVar uploadSubmissionFile');
 			$editData = true;
 			$tempFileId = $form->getData('tempFileId');
 			$tempFileId[$formLocale] = $form->uploadSubmissionFile('submissionFile');
 			$form->setData('tempFileId', $tempFileId);
 		}  else if (Request::getUserVar('uploadSupplementaryFile')) {
+		       error_log('OJS - PPUpP: User Var uploadSupplFile : ' . Request::getUserVar('uploadSupplementaryFile'));
 		        $editData = true;
 			$tempSupplFileId = $form->getData('tempSupplFileId');
 			
@@ -239,12 +242,16 @@ class PaperPackageUpPlugin extends GenericPlugin {
 		}
 
 		if (Request::getUserVar('createAnother') && $form->validate()) {
+			error_log('OJS - PPUpP: createAnother! ist getuservar');
 			$form->execute();
+			//Fehlerquelle
 			Request::redirect(null, 'manager', 'generic', array('plugin', $this->getName()));
 		} else if (!isset($editData) && $form->validate()) {
+		        error_log('OJS - PPUpP: Form wird ausgeführt, weil validation true ist');
 			$form->execute();
 			$templateMgr->display($this->getTemplatePath() . 'submitSuccess.tpl');
 		} else {
+		        error_log('OJS - Hier haut es die Sicherung raus!');
 			$form->display();
 		}
 
@@ -267,7 +274,6 @@ class PaperPackageUpPlugin extends GenericPlugin {
 			$params['path'] = array_merge($params['path'], array($params['id']));
 			unset($params['id']);
 		}
-		error_log('OJS - PPUpP: smartyPluginUrl = ' . $smarty->smartyUrl($params, $smarty));
 		return $smarty->smartyUrl($params, $smarty);
 	}
 

@@ -41,12 +41,14 @@ class PaperPackageUpForm extends Form {
                 $this->addCheck(new FormValidatorCustom($this, 'datePublished', 'required', 'plugins.generic.paperPackageUpload.dateRequired', create_function('$destination, $form', 'return is_int($form->getData(\'datePublished\'));'), array(&$this)));
 		$this->addCheck(new FormValidatorCustom($this, 'sectionId', 'required', 'author.submit.form.sectionRequired', array(DAORegistry::getDAO('SectionDAO'), 'sectionExists'), array($journal->getId())));
 		$this->addCheck(new FormValidatorCustom($this, 'authors', 'required', 'author.submit.form.authorRequired', create_function('$authors', 'return count($authors) > 0;')));
-		$this->addCheck(new FormValidatorCustom($this, 'destination', 'required', 'plugins.generic.paperPackageUpload.issueRequired', create_function('$destination, $form', 'return $destination == \'queue\'? true : ($form->getData(\'issueId\') > 0);'), array(&$this)));
+//		$this->addCheck(new FormValidatorCustom($this, 'destination', 'required', 'plugins.generic.paperPackageUpload.issueRequired', create_function('$destination, $form', 'return $destination == \'queue\'? true : ($form->getData(\'issueId\') > 0);'), array(&$this)));
 		$this->addCheck(new FormValidatorArray($this, 'authors', 'required', 'plugins.generic.paperPackageUpload.authorRequiredFields', array('firstName', 'lastName')));
+		//$this->addCheck(new FormValidator($this, 'authors-0-firstName', 'required', 'plugins.generic.paperPackageUpload.authorRequiredFirst'));
+		//$this->addCheck(new FormValidator($this, 'authors-0-lastName', 'required', 'plugins.generic.paperPackageUpload.authorRequiredLast'));
 		$this->addCheck(new FormValidatorArrayCustom($this, 'authors', 'required', 'user.profile.form.emailRequired', create_function('$email, $regExp', 'return empty($email) ? true : String::regexp_match($regExp, $email);'), array(ValidatorEmail::getRegexp()), false, array('email')));
 		$this->addCheck(new FormValidatorArrayCustom($this, 'authors', 'required', 'user.profile.form.urlInvalid', create_function('$url, $regExp', 'return empty($url) ? true : String::regexp_match($regExp, $url);'), array(ValidatorUrl::getRegexp()), false, array('url')));
 		$this->addCheck(new FormValidatorLocale($this, 'title', 'required', 'author.submit.form.titleRequired'));
- 		$this->addCheck(new FormValidatorLocale($this, 'originalJournal', 'required', 'plugins.generic.paperPackageUpload.originalJournalRequired'));
+// 		$this->addCheck(new FormValidatorLocale($this, 'originalJournal', 'required', 'plugins.generic.paperPackageUpload.originalJournalRequired'));
 
 	}
 
@@ -176,8 +178,10 @@ class PaperPackageUpForm extends Form {
 		$temporaryFile = $temporaryFileManager->handleUpload($fileName, $user->getId());
 
 		if ($temporaryFile) {
-		        return $temporaryFile->getId();
+		        error_log('OJS - PPUpP: File ist da!');
+			return $temporaryFile->getId();
 		} else {
+		        error_log('OJS - PPUpP: File ist nicht da!');
 			return false;
 		}
 	}
@@ -378,6 +382,11 @@ class PaperPackageUpForm extends Form {
 		$article->setTitle($this->getData('title'), null); // Localized
 	      //add Original Journal to Abstract  
 	        $orig_journal = $this->getData('originalJournal');
+		foreach (array_keys($orig_journal) as $locale){
+		     if(empty($orig_journal[$locale])){
+		          $orig_journal[$locale]= 'unpublished';
+		     }
+	        }
 		$abstr = $this->getData('abstract');
 	       foreach(array_keys($abstr) AS $abs_key){
 		$abstr[$abs_key] .=  '  <p id="originalPub"> ' . $orig_journal[$abs_key]. ' </p> ';
@@ -624,12 +633,16 @@ class PaperPackageUpForm extends Form {
 		// Add to end of editing queue
 		import('classes.submission.editor.EditorAction');
 		if (isset($galley)) EditorAction::expediteSubmission($article);
-
-		if ($this->getData('destination') == "issue") {
+                
+		// Add to the current issue
+		$issueDao =& DAORegistry::getDAO('IssueDAO');
+		$issue =& $issueDao->getCurrentIssue($journal->getId());
+                $issueId = $issue->getIssueId();
+		//if ($this->getData('destination') == "issue") {
 			// Add to an existing issue
-			$issueId = $this->getData('issueId');
+		//	$issueId = $this->getData('issueId');
 			$this->scheduleForPublication($articleId, $issueId);
-		}
+		//}
 
 		// Index article.
 		import('classes.search.ArticleSearchIndex');
