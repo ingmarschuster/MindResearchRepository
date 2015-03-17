@@ -93,11 +93,11 @@ class PaperPackageEdPlugin extends GenericPlugin {
 	}
 
 	function getDisplayName() {
-		return __('plugins.generic.paperPackageEd.displayName');
+		return __('plugins.generic.paperPackageEdit.displayName');
 	}
 
 	function getDescription() {
-		return __('plugins.generic.paperPackageEd.description');
+		return __('plugins.generic.paperPackageEdit.description');
 	}
 
     /**
@@ -174,8 +174,12 @@ class PaperPackageEdPlugin extends GenericPlugin {
        function userIsEditor($articleId){
          $userIsEditor = false;
 	 if($articleId != NULL){
-              $user =& Request::getUser();
-              $userId = $user->getId();
+            $user =& Request::getUser();
+	    if(is_object($user)){
+               $userId = $user->getId();
+            }else{
+               $userId = NULL;
+            }
 	      $articleDAO =& DAORegistry::getDAO('ArticleDAO');
               //TO DO: Fehlerbehandlung, falls einer die URL eingibt ohne articleId=xyz
 	      //Wenn kein Article übergeben wird, gibt es auch keinen und damit keine aticleUserId...
@@ -272,7 +276,13 @@ class PaperPackageEdPlugin extends GenericPlugin {
 			
 			$tempSupplFileId[$formLocale] = $form->uploadSupplementaryFile('supplementaryFile');
 			$form->setData('tempSupplFileId', $tempSupplFileId);
-		}
+		}  else if (Request::getUserVar('revertToLastSubmissionFile')) {
+		        $editData = true;
+                        $form->setData('tempFileId', $tempFileId);
+                }  else if (Request::getUserVar('revertToLastSupplFile')) {
+                        $editData = true;
+                        $form->setData('tempSupplFileId', $tempSupplFileId);
+                }
 
 		if (Request::getUserVar('createAnother') && $form->validate()) {
 			$form->execute($this->_articleID);

@@ -144,6 +144,10 @@ class PaperPackageEdForm extends Form {
 	   $citation= $article->getCitations();
            $templateMgr->assign('citations', $citation);
 */
+
+         //SectionId
+         $articleSectionId = $article->getSectionId();
+         $templateMgr->assign('sectionId', $articleSectionId);
 		$templateMgr->assign('journal', $journal);
 
 		$sectionDao =& DAORegistry::getDAO('SectionDAO');
