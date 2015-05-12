@@ -29,9 +29,7 @@ class PaperPackageEdHandler extends Handler {
          }
         $this->setupTemplate(true);
 
-        error_log('OJS - PaperPackageEdHandler: Jetzt sind wir hier');
         if ( is_object($plugin) ) {
-        error_log('OJS - PaperPackageEdHandler: Plugin is set');
         $plugin->display($args);
         }
         }
