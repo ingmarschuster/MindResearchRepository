@@ -60,7 +60,8 @@ class OJSPackager{
 
     // create R-style package for given $article_id
     public function writePackage($article_id, $suffix=''){
-        $suppPath = $this->filesPath    . "/" . $article_id . "/supp/";
+        error_log('OJS - OJSPackager: writePackage() wird aufgerufen und damit auch Tar.php');
+	$suppPath = $this->filesPath    . "/" . $article_id . "/supp/";
         $preprPath = $this->filesPath   . "/" . $article_id . "/public/";
         $pd = new PackageDescription();
         $authors = "c(";
@@ -80,6 +81,7 @@ class OJSPackager{
         // get author details of $article_id and put them into the DESCRIPTION file
         $result_authorStmt = $this->rpositorydao->getAuthorStatement($article_id);
         $numberOfAuthors = count($result_authorStmt);
+	               error_log('OJS - OJSPackager: Vor der Schleife: Welchen Wert hat number of Authors? ' . $numberOfAuthors);
 	foreach($result_authorStmt as $row_authorStmt){
 	    if(strlen($pd->get("Author"))){
 	    	$pd->set("Author", $pd->get("Author"). " and ");
@@ -95,12 +97,15 @@ class OJSPackager{
 	       $authorNamePkg = $row_authorStmt['last_name'];
 	       $cleanedAuthorName = str_replace(' ','',$authorNamePkg);
 	       $pkgName .= $cleanedAuthorName;
+	                      error_log('OJS - OJSPackager: Hier kommt was zum Autor dazu? Im Ifzweig kommt ' . $pkgName);
             }
 	    else{
+	                   error_log('OJS - OJSPackager: Bin im Elsezweig, aber es stimmt etwas mit der naechsten If abfrage nicht...');
 	        if($row_authorStmt['primary_contact'] == 1){
 		  $authorNamePkg = $row_authorStmt['last_name'];
                   $cleanedAuthorName = str_replace(' ','',$authorNamePkg);
                   $pkgName .= $cleanedAuthorName;
+	       error_log('OJS - OJSPackager wird hier was zum Autor hinzugefuegt? Im Elsezweig kommt ' . $pkgName);
 	       }
 	    }
 
@@ -130,8 +135,13 @@ class OJSPackager{
         $pd->set("Package", $pkgName);
        
         // path to write the package to
-        $archive = sys_get_temp_dir() . '/' . $pkgName;
-        
+        $archive = array();
+	$archive['name'] = sys_get_temp_dir() . '/' . $pkgName;
+	$archive['targz'] = sys_get_temp_dir() . '/' . $pkgName . '.tar';
+        $archive['zip'] = sys_get_temp_dir() . '/' . $pkgName . '.zip';
+
+        error_log('OJS - OJSPackager: welchen Wert hat $archive: ' . $archive);
+
         $pd->set("Version", "1.0");
         $pd->set("License", "CC BY-NC (http://creativecommons.org/licenses/by-nc/3.0/de/)");
         
@@ -141,8 +151,10 @@ class OJSPackager{
 	//$pdfile = $pdfile;
 	//error_log("OJS - Rpository: ". $pdfile);
         rename($pd->toTempFile(), $tempDir .'/' . 'DESCRIPTION');
-        $pw = new Archive_Tar($archive, 'gz');
-        $result_fileStmt = $this->rpositorydao->getFileStatement($article_id);
+        $pw = new Archive_Tar($archive['targz'], 'gz');
+        //$pw = new PharData($archive['targz']);
+        $pharData = new PharData($archive['zip']);
+	$result_fileStmt = $this->rpositorydao->getFileStatement($article_id);
         $submissionPreprintName = '';
 
 	$suppCount = 0;
@@ -196,7 +208,13 @@ class OJSPackager{
                 copy($preprPath . $name, trim($tempDir) . '/' . 'inst' . '/' . 'preprint' . '/' . $submissionPreprintName);
             }
         }
-        // create the archive with the temp directory we created above
+        error_log('OJS - OJSPackager: der Wert von $tempDir ' . $tempDir . ' und von pkgName ' . $pkgName); 
+	//PhardataDirectory
+        $pharData->buildFromDirectory($tempDir);
+	//$archive['zip']=$pharData->buildFromDirectory($tempDir);
+	// create the archive with the temp directory we created above
+       //$pw->buildFromDirectory($tempDir);
+       //$pw->compress(Phar::GZ);
         if(!$pw->createModify($tempDir, "$pkgName" . '/', $tempDir)){
             error_log("OJS - rpository: error writing archive");
         }
@@ -205,7 +223,13 @@ class OJSPackager{
         $this->deleteDirectory($tempDir);
         
         // return the name of created archive
-        return $archive;
+        error_log('OJS - OJSPackager: Ein Archive wurde erfolgreich zustande gebracht! mit dem archive ' . $archive);
+	return $archive;
     }
+ 
+    function &getUnpacker(){
+         return $this->unpacker;
+    }
+ 
  }
 ?>

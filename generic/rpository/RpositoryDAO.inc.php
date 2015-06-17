@@ -1,7 +1,9 @@
 <?php
 class RpositoryDAO extends DAO{
+    
     public function getDateFilename($article_id){
-        $result =& $this->retrieve('SELECT date, fileName FROM rpository WHERE articleId = ? AND current = 1', array($article_id));
+        //gets the date and the filename belonging to a certain article
+	$result =& $this->retrieve('SELECT date, fileName FROM rpository WHERE articleId = ? AND current = 1', array($article_id));
         $return_value = array();
         if(!$result->EOF){
             $row = $result->GetRowAssoc(false);
@@ -14,19 +16,19 @@ class RpositoryDAO extends DAO{
     }
     
     public function delCurrentEntry($article_id){
-// Insert into OldPID( Select articleId, pid1, pid2 from rpository Where articleID= ?  AND current = !')
+    // deletes the current entry of an article
       $insertCheck = $this->update('Insert into rpository_unused_pid( Select * from rpository Where articleId = ? AND current = 1)', array($article_id));
       $deleteCheck = $this->update('DELETE FROM rpository WHERE articleId = ? AND current = 1', array($article_id));
       if($insertCheck AND $deleteCheck){
-         return TRUE;
+	 return TRUE;
       }else{
          return FALSE;
       }
-      //  return $this->update('Insert into rpository_unused_pid( Select * from rpository Where articleId = ? AND current = 1); DELETE FROM rpository WHERE articleId = ? AND current = 1', array($article_id,$article_id));
     }
     
     public function getJournalId($article_id){
-        $result =& $this->retrieve('SELECT journals.journal_id FROM journals INNER JOIN articles ON journals.journal_id = articles.article_id WHERE article_id = ?', array($article_id));
+        // get Id of the journal where a certain package occurred by its article_id
+	$result =& $this->retrieve('SELECT journals.journal_id FROM journals INNER JOIN articles ON journals.journal_id = articles.article_id WHERE article_id = ?', array($article_id));
         $return_value = NULL;
         if(!$result->EOF){
             $row = $result->GetRowAssoc(false);
@@ -37,9 +39,11 @@ class RpositoryDAO extends DAO{
         return $return_value;
     }
     
-    public function insertNewEntry($article_id, $filename, $pidv1 = NULL, $pidv2 = NULL, $major = 1, $minor = 0){
-	return $this->update("INSERT INTO rpository (articleId, fileName, current, major, minor, date, pidv1, pidv2) VALUES (?, ?, 1, ?, ?, CURDATE(), ?, ?)", array($article_id, $filename, $major, $minor, $pidv1, $pidv2));
+    public function insertNewEntry($article_id, $filename, $pidv1 = NULL, $pidv2 = NULL, $major = 1, $minor = 0, $filesList = NULL){
+    // inserts new entry for packages with the given arguments 
+	return $this->update("INSERT INTO rpository (articleId, fileName, current, major, minor, date, pidv1, pidv2, packageFilesList) VALUES (?, ?, 1, ?, ?, CURDATE(), ?, ?, ?)", array($article_id, $filename, $major, $minor, $pidv1, $pidv2, json_encode($filesList)));
     }
+
     public function test ($articleId){
         return $this->update("INSERT INTO rpository_unused_pid (Select * from rpository where articleId=?)", array($articleId));
 	}
@@ -73,17 +77,20 @@ class RpositoryDAO extends DAO{
     }
     
     public function getAuthorStatement($article_id){
-        $result =& $this->retrieve("SELECT authors.author_id, authors.primary_contact, authors.seq, "
+        error_log('OJS - RpositoryDAO: getAuthorStatement wird aufgerufen');
+	$result =& $this->retrieve("SELECT authors.author_id, authors.primary_contact, authors.seq, "
                 ."authors.first_name, authors.middle_name, authors.last_name, authors.country, authors.email "
                 ."FROM published_articles JOIN authors ON published_articles.article_id = "
                 ."authors.submission_id WHERE published_articles.article_id = ? ORDER BY authors.seq", array($article_id));
         $return_value = array();
         while (!$result->EOF) {
+        error_log('OJS - RpositoryDAO: getAuthorStatement: In der Schleife sind wir jetzt, d.h. es gibt zumindest ein Ergebnis');
                 $row = $result->GetRowAssoc(false);
                 $return_value[] = $row;
                 $result->MoveNext();
         }
         $result->Close();
+	        error_log('OJS - RpositoryDAO: getAuthorStatement hat den return value: ' . json_encode($return_value));
         return $return_value;
     }
     
@@ -165,44 +172,61 @@ class RpositoryDAO extends DAO{
         }
     }
     
-    function updateRepository(&$plugin, $articleId, $writtenArchive){
+    function updateRepository(&$plugin, $articleId, $writtenArchive, $filesList){
+      // checks for a certain package, whether it is new, already in the database and if it is there longer or shorter than 2 days
+      // then it calles insertNewEntry() with the neccesairy arguments
 //	$backtrace = debug_print_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS);
-	//check if an article with the given articleId exists
-        $suffix='';
+	$suffix='';
+	$minor='';
+	$versionName;
+	$successZip=FALSE;
 	$success=FALSE;
 	$oldVersion = $this-> getDateFilename($articleId);
         $versionExists = FALSE;
-        if(array_key_exists('filename', $oldVersion)){
+        //check if an article with the given articleId exists        
+	if(array_key_exists('filename', $oldVersion)){
             // article exists  
-              $versionExists = TRUE;
+              error_log('OJS - RpositoryDAO: versionExists really mit Wert alter filename: ' . $oldVersion['filename']);
+	      $versionExists = TRUE;
         }
 	$versionNumbers = $this->getMajorMinor($articleId);
 
-
-	//delete old version and insert new version with the old name, in the case of package created in last two days
 	$oldFile = $this->packageCreatedInLast2Days($articleId);
 	$oldPid = array(NULL, NULL);
-        if($oldFile != NULL){
-            if(!unlink($plugin->getSetting(0, 'documentroot') . $plugin->getSetting(0,'path') . $oldFile)){
-                error_log('OJS - rpository: error deleting file ' . $plugin->getSetting(0, 'documentroot') . $plugin->getSetting(0,'path') . $oldFile);
+        
+	// 1.Case: Package was created in last 2 days
+	if($oldFile != NULL){
+	    //delete old version und save new version with the old version name 
+            //possible problem: oldfile = name without ending of .zip or tar.gz
+	    if(!unlink($plugin->getSetting(0, 'documentroot') . $plugin->getSetting(0,'path') . $oldFile . '.zip')){
+                error_log('OJS - rpository: error deleting file ' . $plugin->getSetting(0, 'documentroot') . $plugin->getSetting(0,'path') . $oldFile . '.zip');
+            }
+	    if(!unlink($plugin->getSetting(0, 'documentroot') . $plugin->getSetting(0,'path') . $oldFile . '.tar.gz')){
+                error_log('OJS - rpository: error deleting file ' . $plugin->getSetting(0, 'documentroot') . $plugin->getSetting(0,'path') . $oldFile . '.tar.gz');
             }
 	    $oldPid = array($this->getPidV1($articleId), $this->getPidV2($articleId));
             if(!$this->delCurrentEntry($articleId)){
                 error_log('OJS - rpository: error deleting DB entry');
             }
-           $success = rename($writtenArchive, $plugin->getSetting(0, 'documentroot') . $plugin->getSetting(0,'path') . $oldVersion['filename']);
-	    if(!$success){
+           $success = rename($writtenArchive['targz'], $plugin->getSetting(0, 'documentroot') . $plugin->getSetting(0,'path') . $oldVersion['filename'] . '.tar.gz');
+/*	   if(!file_exists($writtenArchive['zip'])){
+	      error_log('RpositoryDAO: Paket aus den letzten beiden Tagen und die Zip Datei existiert nicht' . json_encode($writtenArchive['zip']));
+	   }*/
+	   $successZip = rename($writtenArchive['zip'], $plugin->getSetting(0, 'documentroot') . $plugin->getSetting(0,'path') . $oldVersion['filename'] . '.zip'); 
+	    if(!$success or !$successZip){
                 error_log('OJS - rpository: error rewriting package to repository');
                 return NULL;
             }
             unset($success);
-            $success = $this->insertNewEntry($articleId, $oldVersion['filename'], $oldPid[0], $oldPid[1], $versionNumbers['major'], $versionNumbers['minor']);
-        } elseif(!$versionExists){
-	 //if this is the ony version of a package, check if the name has to be changed and insert it
-	//if($oldFile != NULL AND !$versionExists){
-          if(!$this->fileNameAvailable(basename($writtenArchive) . "_1.0.tar.gz")){
+	    $versionName=$oldVersion['filename'];
+	    $success = $this->insertNewEntry($articleId, $oldVersion['filename'], $oldPid[0], $oldPid[1], $versionNumbers['major'], $versionNumbers['minor'], $filesList);
+        
+	//2. case: Package is completly new
+	} elseif(!$versionExists){
+	 //if this is the only version of a package, check if the name has to be changed and insert it
+          if(!$this->fileNameAvailable(basename($writtenArchive['name']) . "_1.0")){
             $suffix = 'a';
-             while(!$this->fileNameAvailable(basename($writtenArchive) . $suffix . "_1.0.tar.gz")){
+             while(!$this->fileNameAvailable(basename($writtenArchive['name']) . $suffix . "_1.0")){
                 if($suffix == 'z'){
                     error_log('OJS - rpository: error writing new package to repository');
                     return NULL;
@@ -211,29 +235,43 @@ class RpositoryDAO extends DAO{
              }
           }
         
-          $success = rename($writtenArchive, $plugin->getSetting(0, 'documentroot') . $plugin->getSetting(0,'path') . basename($writtenArchive) . $suffix . "_1.0.tar.gz");
-          if(!$success){
+          $success = rename($writtenArchive['targz'], $plugin->getSetting(0, 'documentroot') . $plugin->getSetting(0,'path') . basename($writtenArchive['name']) . $suffix . "_1.0.tar.gz");
+	 if(!file_exists($writtenArchive['zip'])){
+	               error_log('RpositoryDAO: Paket neu und die Zip Datei existiert nicht' . json_encode($writtenArchive['zip']));
+         }
+	  $successZip =  rename($writtenArchive['zip'], $plugin->getSetting(0, 'documentroot') . $plugin->getSetting(0,'path') . basename($writtenArchive['name']) . $suffix . "_1.0.zip");
+          if(!$success or !$successZip){
             error_log('OJS - rpository: error writing new package to repository');
             return NULL;
           }
           unset($success);
           $major = 1;
 	  $minor = 0;
-          $success = $this->insertNewEntry($articleId, basename($writtenArchive) . $suffix . "_1.0.tar.gz", $oldPid[0], $oldPid[1], $major, $minor);
+	  $versionName = basename($writtenArchive['name']) . $suffix . "_1.0";
+	 $success = $this->insertNewEntry($articleId, basename($writtenArchive['name']) . $suffix . "_1.0", $oldPid[0], $oldPid[1], $major, $minor, $filesList);
+       
        }else{
-	 // if a package older than two days is edited, change the name to a newer version
-         $nameBegins = preg_replace("/_1\.\d\.tar\.gz/", "", $oldVersion['filename']);
+	 //3. case:  if a package older than two days is edited, change the name to a newer version
+	 $nameBegins = preg_replace("/_1\.\d\.tar\.gz/", "", $oldVersion['filename']);
+	 //$nameBegins = preg_replace("/_1\.\d/", "", $oldVersion['filename']);
+	 error_log('OJS - RpositoryDAO: Welchen Wert hat nameBegins? ' . $nameBegins);
 	 //$versionNumbers = $this->getMajorMinor($articleId);
          $minorNext = strval(intval($versionNumbers['minor']) + 1);
-	 $newVersionName = $nameBegins . '_' . $versionNumbers['major'] . '.' . $minorNext . '.tar.gz';        
-	  $success = rename($writtenArchive, $plugin->getSetting(0, 'documentroot') . $plugin->getSetting(0,'path') . $newVersionName);
-	  if(!$success){
+	 $minor = $minorNext;
+	 $newVersionName = $nameBegins . '_' . $versionNumbers['major'] . '.' . $minorNext;        
+	 $versionName= $newVersionName; 
+	 $success = rename($writtenArchive['targz'], $plugin->getSetting(0, 'documentroot') . $plugin->getSetting(0,'path') . $newVersionName . '.tar.gz');
+	/* if(!file_exists($writtenArchive['zip'])){
+	          error_log('RpositoryDAO: Paket aelter als 2 Tage und die Zip Datei existiert nicht' . json_encode($writtenArchive['zip']));
+         }*/
+	 $successZip = rename($writtenArchive['zip'], $plugin->getSetting(0, 'documentroot') . $plugin->getSetting(0,'path') . $newVersionName . '.zip');
+	  if(!$success or !$successZip){
              error_log('OJS - rpository: error writing EDITED VERSION of package to repository');
              return NULL;
           }
 	  unset($success);
           $this->resetCurrent($articleId);
-	  $success = $this->insertNewEntry($articleId, $newVersionName, $oldPid[0], $oldPid[1], $versionNumbers['major'], $minorNext);
+	  $success = $this->insertNewEntry($articleId, $newVersionName, $oldPid[0], $oldPid[1], $versionNumbers['major'], $minorNext, $filesList);
         }
 
 	if(!$success){
@@ -244,12 +282,13 @@ class RpositoryDAO extends DAO{
 
 	if(!$this->hasPID($articleId)){
 	// do pid stuff
-	    $success = $this->updatePID($plugin, $articleId);
+           $success = $this->updatePID($plugin, $articleId, $versionName, '1', $minor, $filesList);
 	    if(!$success){
-		error_log("OJS - rpository: error fetching PID for archive: " . $writtenArchive);
+		error_log("OJS - rpository: error fetching PID for archive: " . $writtenArchive['name']);
 	    }
         }
-        return basename($writtenArchive) . $suffix . "_1.0.tar.gz";
+	error_log('OJS - RpositoryDAO: wie aendert sich writtenArchive: ' . basename($writtenArchive['name']));
+	return basename($writtenArchive['name']) . $suffix . "_1.0.tar.gz";
     }
     
     function hasPID($articleId) {
@@ -509,12 +548,26 @@ class RpositoryDAO extends DAO{
         return $this->update("Insert into rpository_unused_pid( Select * from rpository Where articleID= ?  AND current = 1); UPDATE rpository SET pidv1=? WHERE articleId=? AND current=1", array($article_id,$pid, $article_id));        
     }
     
-    function updatePIDv2($article_id, $pid){     
+/*    function updatePIDv2($article_id, $pid){     
         return $this->update("Insert into rpository_unused_pid( Select * from rpository Where articleID= ?  AND current = 1); UPDATE rpository SET pidv2=? WHERE articleId=? AND current=1", array($article_id,$pid, $article_id));        
+    }*/
+
+    function updatePIDv2($article_id, $pid){     
+	 $insertCheck = $this->update("Insert into rpository_unused_pid( Select * from rpository Where articleID= ?  AND current = 1);", array($article_id)); 
+         $updateCheck = $this->update(" UPDATE rpository SET pidv2 = ? WHERE articleId = ? AND current = 1", array($pid, $article_id));
+          if($insertCheck AND $updateCheck){
+               return TRUE;
+           }else{
+               return FALSE;
+           }
     }
     
-    function updatePID(&$plugin, $articleId){
-        if($plugin->getSetting(0, 'pidstatus') == 0){
+   // function updatePID(&$plugin, $articleId){
+   function updatePID(&$plugin, $articleId, $filename, $major, $minor, $filesList){
+   // function updatePID(&$plugin, $articleId, $filename, $major, $minor){
+	$pidv1 = 'NULL';
+	$pidv2 = 'NULL';
+	if($plugin->getSetting(0, 'pidstatus') == 0){
             return TRUE;
         }
         
@@ -530,8 +583,10 @@ class RpositoryDAO extends DAO{
                 return FALSE;
             }
             else{
-                $this->updatePIDv1($articleId, $pidv1);
-            }
+                //$this->updatePIDv1($articleId, $pidv1);
+		$this->delCurrentEntry($articleId);
+                $this->insertNewEntry($articleId, $filename, $pidv1, $pidv2, $major, $minor, $filesList);            
+	    }
         }
         
         if($plugin->getSetting(0, 'pidstatus') == 2){
@@ -546,9 +601,18 @@ class RpositoryDAO extends DAO{
                return FALSE;
            }
            else{
-               $this->updatePIDv2($articleId, $pidv2);
-           }
+              // $this->updatePIDv2($articleId, $pidv2);
+              $this->delCurrentEntry($articleId);
+	      $this->insertNewEntry($articleId, $filename, $pidv1, $pidv2, $major, $minor, $filesList);
+	   }
         }
+       //Aenderung zu testzwecken
+	if($plugin->getSetting(0, 'pidstatus') == 3){
+	     $pidv3 = '1234/5678-0000-910-FDH';
+	     error_log('OJS - RpositoryDAO: eine fake PID wurde gewaehlt!: ' . $pidv3);
+          $this->delCurrentEntry($articleId);
+	  $this->insertNewEntry($articleId, $filename, $pidv1, $pidv3, $major, $minor, $filesList);
+	 }
         return TRUE;
     }
     
@@ -583,12 +647,12 @@ class RpositoryDAO extends DAO{
     }
 
     function resetCurrent($article_id){
-    //current vom alten Paket auf NUll, vom neuen auf 1
+    //set old packages current=0  
      $xyz = $this->update('UPDATE rpository SET current = 0 WHERE articleId=?', $article_id);       
     }
    
     function getMajorMinor($article_id){
-   //die Werte von major und minor holen und als array zurück geben.
+    // get values of major and minor and give it back as an array
        $result =& $this->retrieve('SELECT major, minor FROM rpository WHERE articleId = ? AND current = 1', array($article_id));
        $return_value = array();
           if(!$result->EOF){
@@ -601,40 +665,14 @@ class RpositoryDAO extends DAO{
         return $return_value;
     
     }    
-/*
-   function &_returnArticleFileFromRow(&$row) {
-     $articleFile = new ArticleFile();
-     $articleFile->setFileId($row['file_id']);
-     $articleFile->setSourceFileId($row['source_file_id']);
-     $articleFile->setSourceRevision($row['source_revision']);
-     $articleFile->setRevision($row['revision']);
-     $articleFile->setArticleId($row['article_id']);
-     $articleFile->setFileName($row['file_name']);
-     $articleFile->setFileType($row['file_type']);
-     $articleFile->setFileSize($row['file_size']);
-     $articleFile->setOriginalFileName($row['original_file_name']);
-     $articleFile->setFileStage($row['file_stage']);
-     $articleFile->setAssocId($row['assoc_id']);
-     $articleFile->setDateUploaded($this->datetimeFromDB($row['date_uploaded']));
-     $articleFile->setDateModified($this->datetimeFromDB($row['date_modified']));
-     $articleFile->setRound($row['round']);
-     $articleFile->setViewable($row['viewable']);
-     HookRegistry::call('ArticleFileDAO::_returnArticleFileFromRow', array(&$articleFile, &$row));
-     return $articleFile;
-   }
-   */
-
 
 
     function getAllPackagesByArticle($article_id){
-      // ein array von Einträgen
+      // get all packages by article_id and give it back as an array
       $result =& $this->retrieve('SELECT * FROM rpository WHERE articleId = ?', array($article_id));
       $packages = array();
-      //$n = 0;
        while (!$result->EOF) {
-        // error_log('OJS - RpositoryDAO: ein Paket wird in ein Array gesteckt unter der Nummer: ' . $n);
 	 $row = $result->GetRowAssoc(false);
-	 // $packages[] =& $this->_returnArticleFileFromRow($result->GetRowAssoc(false));
          $minor = $row['minor'];
 	 $packages[$minor]['date']  = $row['date'];
          $packages[$minor]['filename']   = $row['filename'];
@@ -643,7 +681,6 @@ class RpositoryDAO extends DAO{
 	 $packages[$minor]['pidv1']   = $row['pidv1'];
 	 $packages[$minor]['pidv2']   = $row['pidv2'];
 	 $packages[$minor]['packageid']   = $row['packageid'];
-	 //$n++;
 	 $result->moveNext();
        }
        
@@ -653,6 +690,19 @@ class RpositoryDAO extends DAO{
        return $packages;
     }
 
+    public function getPackageFilesList($article_id){
+       //gives back a string representing the list of files a package contains
+       $result = $this->retrieve("SELECT packageFilesList FROM rpository WHERE articleId = ? AND current = 1", array($article_id));
+       $row = NULL;
+      if($result->EOF){
+           return NULL;
+      }
+      else{
+        $row = $result->GetRowAssoc(false);
+        $result->Close();
+        return $row['packagefileslist'];
+      }
+   }
 
 
 }

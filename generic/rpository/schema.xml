@@ -34,7 +34,9 @@
         <field name="pidv2" type="C2" size="60">
             <UNIQUE/>
         </field>
-        <index name="rpository_key">
+        <field name="packageFilesList" type="LONGTEXT">
+	</field>
+	<index name="rpository_key">
             <col>packageId</col>
             <UNIQUE/>
         </index>
@@ -71,7 +73,9 @@
         <field name="pidv2" type="C2" size="60">
             <UNIQUE/>
         </field>
-        <index name="rpository_key">
+        <field name="packageFilesList" type="LONGTEXT">
+	</field>
+	<index name="rpository_key">
             <col>packageId</col>
             <UNIQUE/>
         </index>
