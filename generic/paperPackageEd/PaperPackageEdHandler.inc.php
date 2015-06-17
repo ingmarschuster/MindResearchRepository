@@ -19,11 +19,9 @@ class PaperPackageEdHandler extends Handler {
 
        function index(){
                      Request::redirect(null, null, 'PaperPackageEdPlugin', Request::getRequestedOp());
-                     //  Request::redirect(null, null, 'view', Request::getRequestedOp());
        }
 
         function view($plugin,$args){
-//      $this->validate();
          if ( !$plugin ) {
              Request::redirect(null, 'index');
          }

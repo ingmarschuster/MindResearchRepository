@@ -505,7 +505,6 @@ class PaperPackageEdForm extends Form {
 	 * Save settings.
 	 */
 	function execute($editArticleId) {
-	        error_log('OJS - PaperPackageEd: Form wird executed. Es muesste ja mal Rpository ins Spiel kommen...');
 		$this->editArticleID=$editArticleId;
 
 		$articleDao =& DAORegistry::getDAO('ArticleDAO');
@@ -695,7 +694,6 @@ class PaperPackageEdForm extends Form {
 
 		}
 
-                error_log('OJS - PaperPackageEd: Vor AuthorSubmissionDAO');
 
 		// Designate this as the review version by default.
 		/*$authorSubmissionDao =& DAORegistry::getDAO('AuthorSubmissionDAO');
@@ -703,7 +701,6 @@ class PaperPackageEdForm extends Form {
 		import('classes.submission.author.AuthorAction');
 		AuthorAction::designateReviewVersion($authorSubmission, true);
 */
-                error_log('OJS - PaperPackageEd: Nach AuthorSubmissionDAO');
 		// Accept the submission
 		/*$sectionEditorSubmission =& $sectionEditorSubmissionDao->getSectionEditorSubmission($articleId);
 		$articleFileManager = new ArticleFileManager($articleId);
@@ -712,7 +709,6 @@ class PaperPackageEdForm extends Form {
 		SectionEditorAction::recordDecision($sectionEditorSubmission, SUBMISSION_EDITOR_DECISION_ACCEPT);
 */
 
-                error_log('OJS - PaperPackageEd: Nach SubmissionDao und vor SingoffDao');
 		// Create signoff infrastructure
 		$copyeditInitialSignoff = $signoffDao->build('SIGNOFF_COPYEDITING_INITIAL', ASSOC_TYPE_ARTICLE, $articleId);
 		$copyeditAuthorSignoff = $signoffDao->build('SIGNOFF_COPYEDITING_AUTHOR', ASSOC_TYPE_ARTICLE, $articleId);
@@ -740,7 +736,6 @@ class PaperPackageEdForm extends Form {
 
 		import('classes.author.form.submit.AuthorSubmitForm');
 		AuthorSubmitForm::assignEditors($article);
-                error_log('OJS - PaperPackageEd: $articleDao->updateArticle($article) wurde aufgerufen: Kommen wir schon wieder ins Rpository?');
 		$articleDao->updateArticle($article);
 
 		// Add to end of editing queue
@@ -782,7 +777,6 @@ class PaperPackageEdForm extends Form {
 			if ($publishedArticle) {
 			        $publishedArticle->setDatePublished($this->getData('datePublished'));
 				$publishedArticle->setIssueId($issueId);
-				error_log('OJS - PaperPackageEd: $publishedArticleDao->updatePublishedArticle($publishedArticle) wurde aufgerufen. Wieder Rpository?');
 				$publishedArticleDao->updatePublishedArticle($publishedArticle);
 			} else {
 				$publishedArticle = new PublishedArticle();
@@ -824,7 +818,6 @@ class PaperPackageEdForm extends Form {
 			$submission->setStatus(STATUS_QUEUED);
 		}
 
-                error_log('OJS - PaperPAckageEd: von hier wird updateSectionEditorSubmission aufgerufen und danach wahrscheinlich updateArticle');
 		$sectionEditorSubmissionDao->updateSectionEditorSubmission($submission);
 	}
 }

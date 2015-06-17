@@ -144,7 +144,11 @@ class PaperPackageEdPlugin extends GenericPlugin {
                  $articleId = substr($articleId, 0, $pos);
 		}
               $this->_articleID=$articleId;
-	      $this->userIsEditor($this->_articleID);
+	      $userIsEditor = $this->userIsEditor($this->_articleID);
+	      //$this->userIsEditor($this->_articleID);
+	      $templateMgr =& TemplateManager::getManager();
+              $templateMgr->assign('userIsEditor', $userIsEditor);
+
          }
  
 
@@ -190,9 +194,11 @@ class PaperPackageEdPlugin extends GenericPlugin {
                     $userIsEditor = true;
               }
                else{
-		            $templateMgr =& TemplateManager::getManager();
-	                $templateMgr->assign('userIsNotEditor', true);
-               }
+	            $userIsEditor = false;
+		           // $templateMgr =& TemplateManager::getManager();
+	               // $templateMgr->assign('userIsNotEditor', true);
+              }
+	   return $userIsEditor;   
          }
        }
 

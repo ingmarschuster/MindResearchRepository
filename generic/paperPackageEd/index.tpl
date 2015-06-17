@@ -13,7 +13,7 @@
 {include file="common/header.tpl"}
 {/strip}
 
-{if $userIsNotEditor}
+{if $userIsEditor==false}
 <p>{translate key="plugins.generic.paperPackageEdit.accessDeniedDescription"}</p>
 {else}
 {literal}
