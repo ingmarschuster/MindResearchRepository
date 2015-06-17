@@ -178,10 +178,8 @@ class PaperPackageUpForm extends Form {
 		$temporaryFile = $temporaryFileManager->handleUpload($fileName, $user->getId());
 
 		if ($temporaryFile) {
-		        error_log('OJS - PPUpP: File ist da!');
 			return $temporaryFile->getId();
 		} else {
-		        error_log('OJS - PPUpP: File ist nicht da!');
 			return false;
 		}
 	}
