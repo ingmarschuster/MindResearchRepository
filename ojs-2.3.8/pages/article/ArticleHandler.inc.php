@@ -225,6 +225,25 @@ class ArticleHandler extends Handler {
 			ARTICLE_SEARCH_INDEX_TERMS => 'search.indexTerms',
 			ARTICLE_SEARCH_GALLEY_FILE => 'search.fullText'
 		));
+                //Änderungen              
+		$rpositoryPlugin = new RpositoryPlugin();
+		$rpositoryPackagePath=$rpositoryPlugin->getSetting(0,'path');
+		$templateMgr->assign('rpositoryBase', "/" . $rpositoryPackagePath);
+		//$templateMgr->assign('rpositoryBase', "/Rpository/src/contrib/");
+		$rpositoryDao=& DAORegistry::getDAO('RpositoryDAO');
+                $filename = $rpositoryDao->getRPackageFile($articleId);
+		$templateMgr->assign('fileName', $filename);
+                $templateMgr->assign('tarFile', $filename . '.tar.gz');
+		$templateMgr->assign('zipFile', $filename . '.zip');
+		$pid = $rpositoryDao->getPID($articleId);
+		$templateMgr->assign('pid', $pid);
+		$filesList = $rpositoryDao->getPackageFilesList($articleId);
+		$templateMgr->assign('filesList', json_decode($filesList));
+		$editPlugin = new PaperPackageEdPlugin();
+		$userIsEditor = $editPlugin->userIsEditor($articleId);
+		$templateMgr->assign('userIsEditor', $userIsEditor);
+		$templateMgr->assign('paperPackageEditPlugin', "/index.php/mr2/PaperPackageEdPlugin/view/article=" . $articleId );
+		//Änderungen Ende
 
 		$templateMgr->display('article/article.tpl');
 	}

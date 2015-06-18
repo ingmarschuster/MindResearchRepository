@@ -73,6 +73,63 @@
 	<div id="articleTitle"><h3>{$article->getLocalizedTitle()|strip_unsafe_html}</h3></div>
 	<div id="authorString"><em>{$article->getAuthorString()|escape}</em></div>
 	<br />
+        {if (!$subscriptionRequired || $article->getAccessStatus() == $smarty.const.ARTICLE_ACCESS_OPEN || $subscribedUser || $subscribedDomain)}
+                {assign var=hasAccess value=1}
+        {else}
+                {assign var=hasAccess value=0}
+        {/if}
+	{if $galleys}
+                {translate key="reader.fullText"}
+                {if $hasAccess || ($subscriptionRequired && $showGalleyLinks)}
+                        {foreach from=$article->getGalleys() item=galley name=galleyList}
+				<a href="{url page="article" op="view" path=$article->getBestArticleId($currentJournal)|to_array:$galley->getBestGalleyId($currentJournal)}" class="file" target="_parent">{$galley->getGalleyLabel()|escape}</a> &nbsp; Paper Package: {$fileName} <a href="{$rpositoryBase}{$tarFile}" onmouseover="$('#filesList').show(250)" onmouseout="$('#filesList').hide(250)">tar.gz</a> <a href="{$rpositoryBase}{$zipFile}" onmouseover="$('#filesList').show(250)" onmouseout="$('#filesList').hide(250)">zip</a> {if $userIsEditor} or <a href="{$paperPackageEditPlugin}">edit</a> {/if} 
+
+<!--   <table class="data" width="100%">
+       <tr valign="top">
+                {if $pid ne 0}
+                   <td width="50%" class="label">PID: {$pid}</td> 
+                {else}
+                   <td width="50%" class="label">PID: not assigned yet</td>  
+                {/if}
+            <td width="50%" class="label">Package Name:</td>
+	</tr>
+    </table> -->
+
+                                {if $pid ne 0}
+                                      <span style="float:right">PID: {$pid}</span>
+                                {else}
+                                      <span style="float:right">PID: none yet</span>
+                                {/if}
+<!--                                <p>Complete Paper Package: <a href="{$rpositoryBase}{$fileName}">download</a></p>-->
+                                {if $subscriptionRequired && $showGalleyLinks && $restrictOnlyPdf}
+                                        {if $article->getAccessStatus() == $smarty.const.ARTICLE_ACCESS_OPEN || !$galley->isPdfGalley()}
+                                                <img class="accessLogo" src="{$baseUrl}/lib/pkp/templates/images/icons/fulltext_open_medium.gif" alt="{translate key="article.accessLogoOpen.altText"}" />
+                                        {else}
+                                                <img class="accessLogo" src="{$baseUrl}/lib/pkp/templates/images/icons/fulltext_restricted_medium.gif" alt="{translate key="article.accessLogoRestricted.altText"}" />
+                                        {/if}
+                                {/if}
+                        {/foreach}
+                        {if $subscriptionRequired && $showGalleyLinks && !$restrictOnlyPdf}
+                                {if $article->getAccessStatus() == $smarty.const.ARTICLE_ACCESS_OPEN}
+                                        <img class="accessLogo" src="{$baseUrl}/lib/pkp/templates/images/icons/fulltext_open_medium.gif" alt="{translate key="article.accessLogoOpen.altText"}" />
+                                {else}
+                                        <img class="accessLogo" src="{$baseUrl}/lib/pkp/templates/images/icons/fulltext_restricted_medium.gif" alt="{translate key="article.accessLogoRestricted.altText"}" />
+                                {/if}
+                        {/if}
+                {else}
+                        &nbsp;<a href="{url page="about" op="subscriptions"}" target="_parent">{translate key="reader.subscribersOnly"}</a>
+                {/if}
+        {/if}
+
+        <div id="filesList">
+	<h4>Package Content</h4>
+	     <ul>
+  	     {foreach name=filesList from=$filesList key=filesListIndex item=files}
+			 <li> {$files} </li>
+	     {/foreach} 
+             </ul>
+	</div>
+
 	{if $article->getLocalizedAbstract()}
 		<div id="articleAbstract">
 		<h4>{translate key="article.abstract"}</h4>
@@ -104,7 +161,7 @@
 		</div>
 	{/if}
 
-	{if (!$subscriptionRequired || $article->getAccessStatus() == $smarty.const.ARTICLE_ACCESS_OPEN || $subscribedUser || $subscribedDomain)}
+<!--	{if (!$subscriptionRequired || $article->getAccessStatus() == $smarty.const.ARTICLE_ACCESS_OPEN || $subscribedUser || $subscribedDomain)}
 		{assign var=hasAccess value=1}
 	{else}
 		{assign var=hasAccess value=0}
@@ -133,10 +190,10 @@
 		{else}
 			&nbsp;<a href="{url page="about" op="subscriptions"}" target="_parent">{translate key="reader.subscribersOnly"}</a>
 		{/if}
-	{/if}
+	{/if}-->
 {/if}
 
-{include file="article/comments.tpl"}
+<!--{include file="article/comments.tpl"}-->
 
 {include file="article/footer.tpl"}
 
