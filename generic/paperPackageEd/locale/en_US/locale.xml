@@ -18,13 +18,13 @@
 	<message key="plugins.generic.paperPackageEdit.chooseDestinationDescription">Select whether to add new submissions to an existing issue or to leave in the editing queue.</message>
 	<message key="plugins.generic.paperPackageEdit.displayName">Edit Paper Package</message>
 	<message key="plugins.generic.paperPackageEdit.description">Edit submission plugin</message>
-	<message key="plugins.generic.paperPackageEdit.descriptionLong">This plugin allows you to make changes on former submissions. If the submission you are going to change, was added more than one week ago, this will create another version of your package. Otherwise the existing package is going to be changed.</message>
+	<message key="plugins.generic.paperPackageEdit.descriptionLong">This plugin allows you to make changes on former submissions. If the submission you are going to change, was added more than two days ago, this will create another version of your package. Otherwise the existing package is going to be changed.</message>
 	<message key="plugins.generic.paperPackageEdit.issueRequired">You must select an issue to add the article to.</message>
 	<message key="plugins.generic.paperPackageEdit.leaveUnpublished">Leave unpublished</message>
         <message key="plugins.generic.paperPackageEdit.datePublished">Change date published</message>
         <message key="plugins.generic.paperPackageEdit.saveAndCreateAnother">Save and Create Another</message>
 	<message key="plugins.generic.paperPackageEdit.submissionData">Submission Data</message>
-	<message key="plugins.generic.paperPackageEdit.submissionFile">Submission File</message>
+	<message key="plugins.generic.paperPackageEdit.submissionFile">Article File</message>
        	<message key="plugins.generic.paperPackageEdit.subDataDescription">If your publication already has a handle/DOI please enter it. Otherwise please upload your materials in the designated fields.</message>
 	<message key="plugins.generic.paperPackageEdit.submissionDescription">Choose the file to be used as the final galley file for this submission.</message>	
 	<message key="plugins.generic.paperPackageEdit.submissionRequired">You must upload a file for this submission.</message>	
@@ -64,7 +64,8 @@
 	<message key="plugins.generic.paperPackageEdit.success">Article Changed</message>
 	<message key="plugins.generic.paperPackageEdit.successDescription">Changing Article was successful. New Version was created.</message>
 	<message key="plugins.generic.paperPackageEdit.successReturn">Return to PaperPackageEdit plugin.</message>
-        
+        <message key="paperPackageEd.submit.cancelSubmission">Quit submission without saving it.</message>
+
         <message key="plugins.generic.paperPackageEdit.accessDenied">Access Denied</message>
 	<message key="plugins.generic.paperPackageEdit.accessDeniedDescription">As you did not upload this article, you are not allowed to make any changes on it.</message>
 </locale>

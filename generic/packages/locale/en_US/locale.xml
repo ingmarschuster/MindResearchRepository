@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE locale SYSTEM "../../../../../lib/pkp/dtd/locale.dtd">
+
+<!--
+  * locale.xml
+  *
+  * Copyright (c) 2013 University of Potsdam, 2003-2012 John Willinsky
+  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
+  *
+  * Localization strings for the en_US (U.S. English) locale.
+  *
+  * $Id$
+  -->
+
+<locale name="en_US" full_name="U.S. English">
+        <message key="plugins.generic.packages.userPackages">My Packages</message>
+        <message key="plugins.generic.packages.userPackagesDescription">These are the packages you have uploaded. Use the links below to edit or to view your packages.</message>
+        <message key="plugins.block.userHome.UploadDescription">Or you can </message>
+        <message key="plugins.block.userHome.UploadPlugin"> upload another package</message>
+        <message key="plugins.generic.packages.displayName">Packages Plugin </message>
+	<message key="plugins.generic.packages.description">Packages Plugin shows a page with the packages a logged in user uploaded himself und gives possibility to edit these.</message>
+</locale>

@@ -267,7 +267,6 @@ class PaperPackageUpPlugin extends GenericPlugin {
 			$params['path'] = array_merge($params['path'], array($params['id']));
 			unset($params['id']);
 		}
-		error_log('OJS - PPUpP: smartyPluginUrl = ' . $smarty->smartyUrl($params, $smarty));
 		return $smarty->smartyUrl($params, $smarty);
 	}
 

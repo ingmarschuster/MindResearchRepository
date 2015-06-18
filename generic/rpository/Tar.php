@@ -1025,12 +1025,10 @@ class Archive_Tar extends PEAR
 
           if (!$this->_writeHeader($p_filename, $v_stored_filename))
               return false;
-
           while (($v_buffer = fread($v_file, 512)) != '') {
               $v_binary_data = pack("a512", "$v_buffer");
-              $this->_writeBlock($v_binary_data);
+	      $this->_writeBlock($v_binary_data);
           }
-
           fclose($v_file);
 
       } else {

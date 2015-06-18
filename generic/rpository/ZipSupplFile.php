@@ -1,6 +1,8 @@
 <?php
 class ZipSupplFile implements PackedSupplFile
 {
+        private $zippedFileNames;
+
 	function canHandle($file_path)
 	{
 		$finfo = new finfo(FILEINFO_MIME);
@@ -20,13 +22,13 @@ class ZipSupplFile implements PackedSupplFile
         }
 		
 		if($zip)
-		{
+		{       $n=0;
 			while($zip_entry = zip_read($zip))
 			{
 				zip_entry_open($zip, $zip_entry);
 				if (substr(zip_entry_name($zip_entry), -1) == '/')
 				{
-                    //this $zip_entry is a directory. create it.
+                                        //this $zip_entry is a directory. create it.
 					$zdir = substr(zip_entry_name($zip_entry), 0, -1);
 					mkdir($dir_path.'/'.$zdir);
 				}
@@ -34,7 +36,12 @@ class ZipSupplFile implements PackedSupplFile
 					$file = basename(zip_entry_name($zip_entry));
 					$fp = fopen($dir_path.'/'.zip_entry_name($zip_entry), "w+");
 					//echo zip_entry_name($zip_entry);
-					
+					$fileCheck = substr($file, 0, 1);
+					if(substr_count($fileCheck, '.') == 0){
+						$this->zippedFileNames[$n] = $file;
+						$n++;
+					}
+
 					if (zip_entry_open($zip, $zip_entry, "r")) {
 						$buf = zip_entry_read($zip_entry, zip_entry_filesize($zip_entry));
 						zip_entry_close($zip_entry);
@@ -48,5 +55,10 @@ class ZipSupplFile implements PackedSupplFile
 			zip_close($zip);
 		}
 	}
+        
+	function getZippedFileNames(){
+	       return $this->zippedFileNames;
+	}
+
 }
 ?>

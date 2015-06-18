@@ -67,7 +67,8 @@ function editVis(value){
                         <option label="disabled" value="0" {if $pidstatus eq 0}  selected {/if}>PID disabled</option>
                        
                         <option label="enabled" value="2" {if $pidstatus eq 2} selected {/if}>{translate key="plugins.generic.rpository.settings.pidusev2"}</option>
-                    </select>
+                        <option label="enabled" value="3" {if $pidstatus eq 3} selected {/if}>fake PID enabled</option>
+		    </select>
                    
             </tr>
         </table>

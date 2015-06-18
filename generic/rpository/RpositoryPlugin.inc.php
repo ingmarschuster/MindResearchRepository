@@ -45,7 +45,7 @@ class RpositoryPlugin extends GenericPlugin {
     
     function updatePackageIndex(){
 	$rcmd = 'tools::write_PACKAGES\(\".\",fields=c\( \"Author\", \"Date\", \"Title\", \"Description\", \"License\", \"Suggests\", \"DOI\", \"CLARIN-PID\"\), type=c\(\"source\"\),verbose=TRUE\)';
-        $output = shell_exec('cd ' . $this->getSetting(0, 'documentroot') . $this->getSetting(0, 'path') . '; echo ' . $rcmd  . '| /usr/bin/R -q --vanilla' );
+        $output = shell_exec('cd ' . $this->getSetting(0, 'documentroot') . $this->getSetting(0, 'path') . '; echo ' . $rcmd  . '| /usr/bin/R -q --vanilla > /dev/null 2>/dev/null &' );
     }
     
     // this is called whenever one of our registered hooks is fired
@@ -112,15 +112,20 @@ class RpositoryPlugin extends GenericPlugin {
         
         // create the new package for $articleId
         $archive = $packager->writePackage($articleId);
-        
+        $unpacker =& $packager->getUnpacker();
+	$filesList = $unpacker->getZippedFileNames();
+	//error_log('OJS - RpositoryPlugin: komme ich hier auch an den unpacker ran? ' . json_encode($unpacker->getZippedFileNames()));
+
+
         if($archive == NULL){
             error_log("OJS - rpository: creating archive failed");
             return FALSE;
         }
         
         // insert new Package into repository
-        $writtenArchive = $rpositorydao->updateRepository(&$this, $articleId, $archive);
-        if($writtenArchive == NULL){
+	//$writtenArchive = $rpositorydao->updateRepository(&$this, $articleId, $archive);
+        $writtenArchive = $rpositorydao->updateRepository(&$this, $articleId, $archive, $filesList);
+	if($writtenArchive == NULL){
             return FALSE;
         }
         else{
@@ -184,14 +189,14 @@ class RpositoryPlugin extends GenericPlugin {
                     $form->display();
                 }
                 return true;
-            case 'userPackages':
+          /*  case 'userPackages':
 	    $templateMgr =& TemplateManager::getManager();
             $templateMgr->register_function('plugin_url', array(&$this, 'smartyPluginUrl'));
             $journal =& Request::getJournal();
             $this->import('PackageViewer');
 	    $packageViewer = new PackageViewer();
 	    $packageViewer->displayPackages();
-
+*/
 	    default:
                 // Unknown management verb
                 assert(false);
