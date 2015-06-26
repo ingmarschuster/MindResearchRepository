@@ -82,7 +82,7 @@
                 {translate key="reader.fullText"}
                 {if $hasAccess || ($subscriptionRequired && $showGalleyLinks)}
                         {foreach from=$article->getGalleys() item=galley name=galleyList}
-				<a href="{url page="article" op="view" path=$article->getBestArticleId($currentJournal)|to_array:$galley->getBestGalleyId($currentJournal)}" class="file" target="_parent">{$galley->getGalleyLabel()|escape}</a> &nbsp; Paper Package: {$fileName} <a href="{$rpositoryBase}{$tarFile}" onmouseover="$('#filesList').show(250)" onmouseout="$('#filesList').hide(250)">tar.gz</a> <a href="{$rpositoryBase}{$zipFile}" onmouseover="$('#filesList').show(250)" onmouseout="$('#filesList').hide(250)">zip</a> {if $userIsEditor} or <a href="{$paperPackageEditPlugin}">edit</a> {/if} 
+				<a href="{url page="article" op="view" path=$article->getBestArticleId($currentJournal)|to_array:$galley->getBestGalleyId($currentJournal)}" class="file" target="_parent">{$galley->getGalleyLabel()|escape}</a> &nbsp; Paper Package: {$fileName} <span onmouseover="$('#filesList').show()" onmouseout="$('#filesList').hide()"><a href="{$rpositoryBase}{$tarFile}">tar.gz</a> <a href="{$rpositoryBase}{$zipFile}">zip</a></span> {if $userIsEditor} or <a href="{$paperPackageEditPlugin}">edit</a> {/if} 
 
 <!--   <table class="data" width="100%">
        <tr valign="top">
