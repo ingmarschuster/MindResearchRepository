@@ -172,6 +172,52 @@ class RpositoryDAO extends DAO{
         }
     }
     
+    function getNameNew($articleId, $start_name){
+      // checks for a certain package, whether it is new, already in the database and if it is there longer or shorter than 2 days
+      // then it calles insertNewEntry() with the neccesairy arguments
+//	$backtrace = debug_print_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS);
+	error_log("start_name" . $start_name);
+	$suffix='';
+	$minor='';
+	$versionName;
+	$successZip=FALSE;
+	$success=FALSE;
+	$oldVersion = $this->getDateFilename($articleId);
+        $versionExists = FALSE;
+        //check if an article with the given articleId exists        
+	if(array_key_exists('filename', $oldVersion)){
+            // article exists  
+              error_log('OJS - RpositoryDAO: versionExists really mit Wert alter filename: ' . $oldVersion['filename']);
+	      $versionExists = TRUE;
+        }
+	$versionNumbers = $this->getMajorMinor($articleId);
+
+	$oldFile = $this->packageCreatedInLast2Days($articleId);
+	$oldPid = array(NULL, NULL);
+        
+	// 1.Case: Package was created in last 2 days
+	if($oldFile != NULL){
+		$nameBegins = preg_replace("/(_1\.\d+)+(\.tar\.gz){0,1}$/", "", $oldVersion['filename']);
+		return array($nameBegins, $versionNumbers["major"] . "." . $versionNumbers["minor"]);
+        
+	//2. case: Package is completly new
+	} elseif(!$versionExists){
+		  return array($start_name, "1.0");
+       }else{
+	 //3. case:  if a package older than two days is edited, change the name to a newer version
+	 $nameBegins = preg_replace("/(_1\.\d+)+(\.tar\.gz){0,1}$/", "", $oldVersion['filename']); //just removing \.tar\.gz doesnt work
+	 //$nameBegins = preg_replace("/_1\.\d/", "", $oldVersion['filename']);
+	 error_log('OJS - RpositoryDAO: Welchen Wert hat nameBegins? ' . $nameBegins . ' ' . $versionNumbers['minor']);
+	 //$versionNumbers = $this->getMajorMinor($articleId);
+         $minorNext = strval(intval($versionNumbers['minor']) + 1);
+	 $minor = $minorNext;
+	 $newVer = $versionNumbers['major'] . '.' . $minorNext;
+	 #$newVersionName = $nameBegins . '_' . $newVer;        
+	 return array($nameBegins, $newVer); 
+        }
+
+}
+    
     function updateRepository(&$plugin, $articleId, $writtenArchive, $filesList){
       // checks for a certain package, whether it is new, already in the database and if it is there longer or shorter than 2 days
       // then it calles insertNewEntry() with the neccesairy arguments
@@ -224,9 +270,9 @@ class RpositoryDAO extends DAO{
 	//2. case: Package is completly new
 	} elseif(!$versionExists){
 	 //if this is the only version of a package, check if the name has to be changed and insert it
-          if(!$this->fileNameAvailable(basename($writtenArchive['name']) . "_1.0")){
+          if(!$this->fileNameAvailable(basename($writtenArchive['name']))){
             $suffix = 'a';
-             while(!$this->fileNameAvailable(basename($writtenArchive['name']) . $suffix . "_1.0")){
+             while(!$this->fileNameAvailable(basename($writtenArchive['name']) . $suffix)){
                 if($suffix == 'z'){
                     error_log('OJS - rpository: error writing new package to repository');
                     return NULL;
@@ -235,11 +281,11 @@ class RpositoryDAO extends DAO{
              }
           }
         
-          $success = rename($writtenArchive['targz'], $plugin->getSetting(0, 'documentroot') . $plugin->getSetting(0,'path') . basename($writtenArchive['name']) . $suffix . "_1.0.tar.gz");
+          $success = rename($writtenArchive['targz'], $plugin->getSetting(0, 'documentroot') . $plugin->getSetting(0,'path') . basename($writtenArchive['name']) . $suffix . ".tar.gz");
 	 if(!file_exists($writtenArchive['zip'])){
 	               error_log('RpositoryDAO: Paket neu und die Zip Datei existiert nicht' . json_encode($writtenArchive['zip']));
          }
-	  $successZip =  rename($writtenArchive['zip'], $plugin->getSetting(0, 'documentroot') . $plugin->getSetting(0,'path') . basename($writtenArchive['name']) . $suffix . "_1.0.zip");
+	  $successZip =  rename($writtenArchive['zip'], $plugin->getSetting(0, 'documentroot') . $plugin->getSetting(0,'path') . basename($writtenArchive['name']) . $suffix . ".zip");
           if(!$success or !$successZip){
             error_log('OJS - rpository: error writing new package to repository');
             return NULL;
@@ -247,8 +293,8 @@ class RpositoryDAO extends DAO{
           unset($success);
           $major = 1;
 	  $minor = 0;
-	  $versionName = basename($writtenArchive['name']) . $suffix . "_1.0";
-	 $success = $this->insertNewEntry($articleId, basename($writtenArchive['name']) . $suffix . "_1.0", $oldPid[0], $oldPid[1], $major, $minor, $filesList);
+	  $versionName = basename($writtenArchive['name']) . $suffix;
+	 $success = $this->insertNewEntry($articleId, $versionName, $oldPid[0], $oldPid[1], $major, $minor, $filesList);
        
        }else{
 	 //3. case:  if a package older than two days is edited, change the name to a newer version

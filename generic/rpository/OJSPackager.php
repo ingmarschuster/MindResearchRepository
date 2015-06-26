@@ -81,7 +81,8 @@ class OJSPackager{
         // get author details of $article_id and put them into the DESCRIPTION file
         $result_authorStmt = $this->rpositorydao->getAuthorStatement($article_id);
         $numberOfAuthors = count($result_authorStmt);
-	               error_log('OJS - OJSPackager: Vor der Schleife: Welchen Wert hat number of Authors? ' . $numberOfAuthors);
+	error_log('OJS - OJSPackager: Vor der Schleife: Welchen Wert hat number of Authors? ' . $numberOfAuthors . " " . json_encode($this->rpositorydao->getAuthorStatement($article_id)));
+	
 	foreach($result_authorStmt as $row_authorStmt){
 	    if(strlen($pd->get("Author"))){
 	    	$pd->set("Author", $pd->get("Author"). " and ");
@@ -130,12 +131,13 @@ class OJSPackager{
 	$authors.=')';
         $pd->set("Authors@R", $authors);
         $temp = explode('-', $pd->get("Date"));
-        $pkgName = preg_replace("/(_1\.\d+)+(\.tar\.gz){0,1}$/", "",  $this->rpositorydao->getRPackageFile($article_id));# $pkgName . $temp[0] . $suffix;
+
+	$pkgName_and_ver = $this->rpositorydao->getNameNew($article_id,$pkgName); 
+        $pkgName = $pkgName_and_ver[0] . "_" . $pkgName_and_ver[1];
 	#$pkgName = $pkgName. $versnumb['major'] .  '.' $versnumb['minor']; 
 	
         unset($temp);
-	unset($versnumb);
-        $pd->set("Package", $pkgName);
+        $pd->set("Package", $pkgName_and_ver[0]);
        
         // path to write the package to
         $archive = array();
@@ -145,12 +147,13 @@ class OJSPackager{
 
         error_log('OJS - OJSPackager: welchen Wert hat $archive: ' . $archive);
 
-        $pd->set("Version", "1.0");
+        $pd->set("Version", $pkgName_and_ver[1]);
         $pd->set("License", "CC BY-NC (http://creativecommons.org/licenses/by-nc/3.0/de/)");
         
         // create a directory under the system temp dir for and copy the article and its supplementary files to there
         $tempDirRoot = $this->tmpDir();
-	$tempDir = $tempDirRoot . $pkgName;
+	error_log("name and version".json_encode($pkgName_and_ver));
+	$tempDir = $tempDirRoot . "/" . $pkgName . "_" . $pkgName_and_ver[1];
 	mkdir($tempDir);
 	error_log("OJSPackager Tmpdir" . $tempDir);
 
