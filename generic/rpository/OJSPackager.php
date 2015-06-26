@@ -130,8 +130,11 @@ class OJSPackager{
 	$authors.=')';
         $pd->set("Authors@R", $authors);
         $temp = explode('-', $pd->get("Date"));
-        $pkgName = $pkgName . $temp[0] . $suffix;
+        $pkgName = preg_replace("/(_1\.\d+)+(\.tar\.gz){0,1}$/", "",  $this->rpositorydao->getRPackageFile($article_id));# $pkgName . $temp[0] . $suffix;
+	#$pkgName = $pkgName. $versnumb['major'] .  '.' $versnumb['minor']; 
+	
         unset($temp);
+	unset($versnumb);
         $pd->set("Package", $pkgName);
        
         // path to write the package to
@@ -146,7 +149,10 @@ class OJSPackager{
         $pd->set("License", "CC BY-NC (http://creativecommons.org/licenses/by-nc/3.0/de/)");
         
         // create a directory under the system temp dir for and copy the article and its supplementary files to there
-        $tempDir = $this->tmpDir();
+        $tempDirRoot = $this->tmpDir();
+	$tempDir = $tempDirRoot . $pkgName;
+	mkdir($tempDir);
+	error_log("OJSPackager Tmpdir" . $tempDir);
 
 	//$pdfile = $pdfile;
 	//error_log("OJS - Rpository: ". $pdfile);
@@ -220,7 +226,7 @@ class OJSPackager{
         }
         
         // delete temp directory
-        $this->deleteDirectory($tempDir);
+        $this->deleteDirectory($tempDirRoot);
         
         // return the name of created archive
         error_log('OJS - OJSPackager: Ein Archive wurde erfolgreich zustande gebracht! mit dem archive ' . $archive);

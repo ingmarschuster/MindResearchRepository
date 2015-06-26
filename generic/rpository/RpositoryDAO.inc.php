@@ -252,9 +252,9 @@ class RpositoryDAO extends DAO{
        
        }else{
 	 //3. case:  if a package older than two days is edited, change the name to a newer version
-	 $nameBegins = preg_replace("/_1\.\d\.tar\.gz/", "", $oldVersion['filename']);
+	 $nameBegins = preg_replace("/(_1\.\d+)+(\.tar\.gz){0,1}$/", "", $oldVersion['filename']); //just removing \.tar\.gz doesnt work
 	 //$nameBegins = preg_replace("/_1\.\d/", "", $oldVersion['filename']);
-	 error_log('OJS - RpositoryDAO: Welchen Wert hat nameBegins? ' . $nameBegins);
+	 error_log('OJS - RpositoryDAO: Welchen Wert hat nameBegins? ' . $nameBegins . ' ' . $versionNumbers['minor']);
 	 //$versionNumbers = $this->getMajorMinor($articleId);
          $minorNext = strval(intval($versionNumbers['minor']) + 1);
 	 $minor = $minorNext;
